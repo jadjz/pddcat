@@ -24,6 +24,3 @@ for file in "${files_lower[@]}"; do
 		fi
 	done
 done
-
-# rin matches katrina.jade, maybe add dots before and after regex?
-# but then how would we catch spaces, underscores, dashes and what not?
