@@ -15,7 +15,7 @@ for el in cleared_list:
 		pass
 	else:
 		# replace _ with regex whitespace or dot
-		el = el.replace('_', '([\. _-]+|[0-9A-Za-z]*)')
+		el = el.replace('_', '[\. _-]*+')
 		temp.append(el)
 
 try:

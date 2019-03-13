@@ -5,7 +5,9 @@ test="19.03.12.AdriaRae.XXX.1080p.MP4-KTR[rarbg]"
 declare -l test
 test=$test
 echo $test
-reg='adria([\. _-]+|[0-9A-Za-z]*)rae'
+# [\. _-]*+ also is a sound idea for no character
+# ([\. _-]+|[0-9A-Za-z]*) with or without characters in between
+reg='adria[\. _-]*+rae'
 if [[ $test =~ $reg ]]; then
 	echo 'match'
 else
