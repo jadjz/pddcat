@@ -18,9 +18,13 @@ for el in cleared_list:
 		el = el.replace('_', '[\. _-]*+')
 		temp.append(el)
 
+# sort by length descending test
+temp2 = sorted(temp, key=len)
+temp2.reverse()
+
 try:
 	f = open('filtered_list.txt', 'w')
-	for l in sorted(temp):
+	for l in temp2:
 		f.write("%s\n" % l)
 except IOError as e:
 	print(e)
