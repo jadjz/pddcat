@@ -5,7 +5,6 @@
 # ~~drives: drive letter appendation~~ use {d..i} instead of an array
 # ext: extensional path
 
-
 path=/mnt/disk-
 ext=(
 	Archive/porn/vids
