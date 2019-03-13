@@ -6,7 +6,7 @@
 # ext: extensional path
 
 
-path="/mnt/disk-"
+path=/mnt/disk-
 ext=(
 	Archive/porn/vids
 	Archive/porn/pics
