@@ -1,11 +1,11 @@
 #!/bin/bash
 
 # turn into lowercase
-test="19.03.12.Adria Rae.XXX.1080p.MP4-KTR[rarbg]"
+test="19.03.12.AdriaRae.XXX.1080p.MP4-KTR[rarbg]"
 declare -l test
 test=$test
 echo $test
-reg='adria[\. ]+rae'
+reg='adria([\. _-]+|[0-9A-Za-z]*)rae'
 if [[ $test =~ $reg ]]; then
 	echo 'match'
 else
