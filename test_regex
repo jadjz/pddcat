@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# turn into lowercase
+test="19.03.12.Adria Rae.XXX.1080p.MP4-KTR[rarbg]"
+declare -l test
+test=$test
+echo $test
+reg='adria[\. ]+rae'
+if [[ $test =~ $reg ]]; then
+	echo 'match'
+else
+	echo 'no match'
+fi
