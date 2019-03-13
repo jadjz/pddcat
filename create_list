@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# Get list of names from already existing folders in Downloads/Archive
+# path: core path
+# ~~drives: drive letter appendation~~ use {d..i} instead of an array
+# ext: extensional path
+
+
+path="/mnt/disk-"
+ext=(
+	Archive/porn/vids
+	Archive/porn/pics
+	Downloads/porn
+)
+
+for d in {d..i}; do
+	for e in "${ext[@]}"; do
+		ls $path$d/$e >> list.txt
+	done
+done
