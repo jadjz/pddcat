@@ -1,0 +1,29 @@
+#!/bin/bash
+
+# path to files currently sitting at completed downloads
+files=(/mnt/disk-e/lin_downs_c/*)
+# lowercase the file list
+files_lower=()
+for file in "${files[@]}"; do
+	declare -l file
+	file=$file
+	files_lower+=($file)
+done
+
+# array of the list read from filtered_list.txt
+mapfile -t list < filtered_list.txt
+
+# loop through 
+for file in "${files_lower[@]}"; do
+	for reg in "${list[@]}"; do
+		if [[ $file =~ $reg ]]; then
+			echo "---"
+			echo $file
+			echo $reg
+			echo "---"
+		fi
+	done
+done
+
+# rin matches katrina.jade, maybe add dots before and after regex?
+# but then how would we catch spaces, underscores, dashes and what not?
