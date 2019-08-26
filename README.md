@@ -1,5 +1,5 @@
 # Porn Download Directory Categoriser (pddcat)
-Organise your download-everything-directory into named directories using regex.
+Organise your download-everything-directory into named directories using regex. Check [HOW TO](#how-to) below.
 
 ### Usage:
 ```
@@ -47,6 +47,12 @@ DEST_DIR = os.path.join('c:/', 'path', 'to', 'dir')
 DEST_DIR = 'c:/path/to/dir'
 DEST_DIR = 'c:\path\\to\dir' # if you're into escapism
 ```
+### Notes:
+
+Some uncorrectable shortcomings:
+
+* It can't tell the difference between `Nadya Nabakova` and `Bunny Colby`, who are the same person with different names/aliases. Depending on the file/directory name, it will put them into separate directories.
+
 ### LICENSING
 
 The `pddcat` is licensed under GNU General Public License v3.0 (GPL-3.0), see [LICENSE](LICENSE).
