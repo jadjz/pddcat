@@ -3,7 +3,7 @@
 # Instead use custom_list.txt to add your own model names.
 # Comment or send a pull request to add to curated_list.txt.
 # Check #9 on GitHub.
-# revision 1
+# For comparison: revision 1
 kendra_sunderland
 monique_alexander
 christie_stevens
