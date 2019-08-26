@@ -5,5 +5,5 @@ Order of execution, step 1 and 2 is only required once (unless of course new nam
 ```
 $ ./create_list
 $ ./clear_list
-$ ./move_files
+$ ./mv_files
 ```

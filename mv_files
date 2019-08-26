@@ -3,27 +3,49 @@
 # recreation of move_files in python
 import os
 import re
+import shutil
+import time
+import sys
 
-DWN_DIR = os.path.join('/mnt', 'disk-j', 'lin_downs')
+DWN_DIR = os.path.join('/mnt', 'disk-j', 'lin_downs_c')
+ARCH_DIR = os.path.join('/mnt', 'disk-j', 'arch')
+DEST_DIR = os.path.join(ARCH_DIR, 'porn')
+LOG = os.path.join(ARCH_DIR, 'log')
 LIST_FILE = 'filtered_list.txt'
 
 
 with open(LIST_FILE) as f:
 	tags = f.read().splitlines()
-
 downloads = os.listdir(DWN_DIR)
+total_time = 0
+num_of_mv = 0
+start = time.time()
 
 for el in tags:
 	for down in downloads:
 		full_path = os.path.join(DWN_DIR, down)
 		m = re.search(el, down.lower())
 		if (m):
+			num_of_mv += 1
 			if os.path.isdir(full_path):
-				print('DIR')
+				dir_or_file = 'DIR'
 			elif os.path.isfile(full_path):
-				print('FILE')
+				dir_or_file = 'FILE'
 			else:
-				print('ELSE')
-			print(el)
-			print(down)
-			print('---')
+				dir_or_file = 'ELSE??'
+			print('moving %s: %s.' % (dir_or_file, down))
+			try:
+				shutil.move(full_path, os.path.join(DEST_DIR, down))
+			except Exception as e:
+				print(e)
+
+if num_of_mv == 0:
+	print('nothing moved. exiting.')
+	sys.exit()
+
+end = time.time()
+passed = end - start
+total_time += passed
+stat = '%s: moving %d objects took %.2f seconds.\n' % (time.strftime('%Y-%m-%d %H:%M:%S'), num_of_mv, total_time)
+with open(LOG, 'a') as l:
+	l.write(stat)
