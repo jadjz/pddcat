@@ -21,92 +21,115 @@ pddcat_dir = os.path.dirname(os.path.realpath(__file__))
 # GET LIST
 # ---
 
+def get_lists():
+	LOOP_PARTITION_LETTERS = ['d', 'e', 'f', 'g', 'h', 'j']
+	LOOP_PATH = [
+		os.path.join('Archive', 'porn', 'vids'),
+		os.path.join('Archive', 'porn', 'pics'),
+		os.path.join('Downloads', 'porn'),
+		os.path.join('arch', 'porn') # same as ARCH_DIR
+	]
+	dirs_prefix = []
+	for letter in LOOP_PARTITION_LETTERS:
+		dirs_prefix.append(os.path.join('/mnt', 'disk-%s' % letter))
 
-LOOP_PARTITION_LETTERS = ['d', 'e', 'f', 'g', 'h', 'j']
-LOOP_PATH = [
-	os.path.join('Archive', 'porn', 'vids'),
-	os.path.join('Archive', 'porn', 'pics'),
-	os.path.join('Downloads', 'porn'),
-	os.path.join('arch', 'porn') # same as ARCH_DIR
-]
-dirs_prefix = []
-for letter in LOOP_PARTITION_LETTERS:
-	dirs_prefix.append(os.path.join('/mnt', 'disk-%s' % letter))
+
+	temp_names_list = []
+	for prefix in dirs_prefix:
+		for suffix in LOOP_PATH:
+			try:
+				temp_names_list += os.listdir(os.path.join(prefix, suffix))
+			except FileNotFoundError:
+				pass
 
 
-temp_names_list = []
-for prefix in dirs_prefix:
-	for suffix in LOOP_PATH:
-		try:
-			temp_names_list += os.listdir(os.path.join(prefix, suffix))
-		except FileNotFoundError:
+	cleared_list = filter(None, temp_names_list)
+	cleared_list = list(dict.fromkeys(cleared_list))
+	reg_names = []
+
+	for el in cleared_list:
+		# don't add names that start with underscore or dash or is 'unorganised'
+		# or is 'rin', too short and causing a lot of headache
+		if el.startswith('_') or el.startswith('-') or el == 'unorganised' or el == 'rin':
+			# for whatever reason this didn't catch a few, so we're doing it the other way
+			# cleared_list.remove(el)
 			pass
+		else:
+			# replace _ with regex whitespace or dot
+			el = el.replace('_', '[\. _-]*')
+			reg_names.append(el)
 
-
-cleared_list = filter(None, temp_names_list)
-cleared_list = list(dict.fromkeys(cleared_list))
-reg_names = []
-
-for el in cleared_list:
-	# don't add names that start with underscore or dash or is 'unorganised'
-	# or is 'rin', too short and causing a lot of headache
-	if el.startswith('_') or el.startswith('-') or el == 'unorganised' or el == 'rin':
-		# for whatever reason this didn't catch a few, so we're doing it the other way
-		# cleared_list.remove(el)
-		pass
-	else:
-		# replace _ with regex whitespace or dot
-		el = el.replace('_', '[\. _-]*')
-		reg_names.append(el)
-
-# sort by length descending test
-temp = sorted(reg_names, key=len)
-temp.reverse()
+	# sort by length descending test
+	temp = sorted(reg_names, key=len)
+	temp.reverse()
+	return temp
 
 # ---
 # MOVE DIRS/FILES:
 # ---
 
-DWN_DIR = os.path.join('/mnt', 'disk-j', 'lin_downs_c')
-ARCH_DIR = os.path.join('/mnt', 'disk-j', 'arch')
-DEST_DIR = os.path.join(ARCH_DIR, 'porn')
-LOG = os.path.join(ARCH_DIR, 'log')
+def move_dirs():
+	DWN_DIR = os.path.join('/mnt', 'disk-j', 'lin_downs_c')
+	ARCH_DIR = os.path.join('/mnt', 'disk-j', 'arch')
+	DEST_DIR = os.path.join(ARCH_DIR, 'porn')
+	LOG = os.path.join(ARCH_DIR, 'log')
 
 
-tags = list(temp)
-downloads = os.listdir(DWN_DIR)
-total_time = 0
-num_of_mv = 0
-start = time.time()
+	tags = list(get_lists())
+	downloads = os.listdir(DWN_DIR)
+	total_time = 0
+	num_of_mv = 0
+	start = time.time()
 
-for tag in tags:
-	match = list(filter(re.compile(tag, re.IGNORECASE).search, downloads))
-	if len(match) > 0:
-		for down in match:
-			num_of_mv += 1
-			full_path = os.path.join(DWN_DIR, down)
-			if os.path.isdir(full_path):
-				dir_or_file = 'DIR'
-			elif os.path.isfile(full_path):
-				dir_or_file = 'FILE'
-			else:
-				dir_or_file = 'ELSE??'
-			print('moving %s: %s.' % (dir_or_file, down))
-			try:
-				# turn regex back to normal directory names
-				tag = tag.replace('[\. _-]*', '_')
-				os.makedirs(os.path.join(DEST_DIR, tag), exist_ok=True)
-				shutil.move(full_path, os.path.join(DEST_DIR, tag, down))
-			except Exception as e:
-				print(e)
+	for tag in tags:
+		match = list(filter(re.compile(tag, re.IGNORECASE).search, downloads))
+		if len(match) > 0:
+			for down in match:
+				num_of_mv += 1
+				full_path = os.path.join(DWN_DIR, down)
+				if os.path.isdir(full_path):
+					dir_or_file = 'DIR'
+				elif os.path.isfile(full_path):
+					dir_or_file = 'FILE'
+				else:
+					dir_or_file = 'ELSE??'
+				print('moving %s: %s.' % (dir_or_file, down))
+				try:
+					# turn regex back to normal directory names
+					tag = tag.replace('[\. _-]*', '_')
+					os.makedirs(os.path.join(DEST_DIR, tag), exist_ok=True)
+					shutil.move(full_path, os.path.join(DEST_DIR, tag, down))
+				except Exception as e:
+					print(e)
 
-if num_of_mv == 0:
-	print('nothing moved. exiting.')
-	sys.exit()
+	if num_of_mv == 0:
+		print('nothing moved. exiting.')
+		sys.exit()
 
-end = time.time()
-passed = end - start
-total_time += passed
-stat = '%s: moving %d objects took %.2f seconds.\n' % (time.strftime('%Y-%m-%d %H:%M:%S'), num_of_mv, total_time)
-with open(LOG, 'a') as l:
-	l.write(stat)
+	end = time.time()
+	passed = end - start
+	total_time += passed
+	stat = '%s: moving %d objects took %.2f seconds.\n' % (time.strftime('%Y-%m-%d %H:%M:%S'), num_of_mv, total_time)
+	with open(LOG, 'a') as l:
+		l.write(stat)
+
+# ---
+# START
+# ---
+
+def start():
+	if len(sys.argv) == 1:
+		move_dirs()
+	else:
+		while len(sys.argv) > 1:
+			opt = str(sys.argv[1])
+			if opt == '-c' or opt == '':
+				pass
+			elif opt == '-a' or opt == '--add':
+				pass
+			elif opt == '-h' or opt == '--help':
+				pass
+
+
+if __name__ == '__main__':
+	start()
