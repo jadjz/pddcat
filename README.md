@@ -1,9 +1,8 @@
-# downloads-categoriser
-An attempt at a categorisation program for my downloads folder using regex.
+# Porn Download Directory Categoriser
+Organise your download-everything-directory into named directories using regex.
 
-Order of execution, step 1 and 2 is only required once (unless of course new names):
+*Soon it will be cold enough to build fires & there should be a manual.*
+
 ```
-$ ./create_list
-$ ./clear_list
-$ ./mv_files
+$ ./prndwnc
 ```
