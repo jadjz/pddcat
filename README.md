@@ -1,4 +1,4 @@
-# Porn Download Directory Categoriser (pddcat)
+# Porn Download Directory Categoriser (pddcat) 🐈
 Organise your all-in-one everything's-a-jumbled-mess downloads directory into different directories based on models' names using regex. Check [HOW TO](#how-to) & [functionality example](#functionality-example) below.
 
 I haven't tested it in Windows, but I'm fairly certain it should work without a hitch. Please send feedback to [topic #10](https://github.com/kittenparry/pddcat/issues/10) if you do.
@@ -18,7 +18,7 @@ Options:
 ### Contributing to model list
 You can comment new names to [topic #9](https://github.com/kittenparry/pddcat/issues/9) or send a pull request to add more model names to [curated list](db/curated_list.txt) that you download with `-c` option.
 
-## HOW TO
+## HOW TO ❓
 Edit `DWN_DIR` and `DEST_DIR` in program to use for your own needs. See *functionality example* below.
 
 **DWN_DIR:** User downloads directory (source), this is where you keep all your mumbled/jumbled downloads.  
