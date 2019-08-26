@@ -1,21 +1,68 @@
 #!/usr/bin/env python3
 
-# recreation of move_files in python
 import os
 import re
 import shutil
 import time
 import sys
 
+# ---
+# GET LIST
+# ---
+
+
+LOOP_PARTITION_LETTERS = ['d', 'e', 'f', 'g', 'h', 'j']
+LOOP_PATH = [
+	os.path.join('Archive', 'porn', 'vids'),
+	os.path.join('Archive', 'porn', 'pics'),
+	os.path.join('Downloads', 'porn'),
+	os.path.join('arch', 'porn') # same as ARCH_DIR
+]
+dirs_prefix = []
+for letter in LOOP_PARTITION_LETTERS:
+	dirs_prefix.append(os.path.join('/mnt', 'disk-%s' % letter))
+
+
+temp_names_list = []
+for prefix in dirs_prefix:
+	for suffix in LOOP_PATH:
+		try:
+			temp_names_list += os.listdir(os.path.join(prefix, suffix))
+		except FileNotFoundError:
+			pass
+
+
+cleared_list = filter(None, temp_names_list)
+cleared_list = list(dict.fromkeys(cleared_list))
+reg_names = []
+
+for el in cleared_list:
+	# don't add names that start with underscore or dash or is 'unorganised'
+	# or is 'rin', too short and causing a lot of headache
+	if el.startswith('_') or el.startswith('-') or el == 'unorganised' or el == 'rin':
+		# for whatever reason this didn't catch a few, so we're doing it the other way
+		# cleared_list.remove(el)
+		pass
+	else:
+		# replace _ with regex whitespace or dot
+		el = el.replace('_', '[\. _-]*')
+		reg_names.append(el)
+
+# sort by length descending test
+temp = sorted(reg_names, key=len)
+temp.reverse()
+
+# ---
+# MOVE DIRS/FILES:
+# ---
+
 DWN_DIR = os.path.join('/mnt', 'disk-j', 'lin_downs_c')
 ARCH_DIR = os.path.join('/mnt', 'disk-j', 'arch')
 DEST_DIR = os.path.join(ARCH_DIR, 'porn')
 LOG = os.path.join(ARCH_DIR, 'log')
-LIST_FILE = os.path.join(os.path.expanduser('~'), 'git', 'downloads-categoriser', 'filtered_list.txt')
 
 
-with open(LIST_FILE) as f:
-	tags = f.read().splitlines()
+tags = list(temp)
 downloads = os.listdir(DWN_DIR)
 total_time = 0
 num_of_mv = 0
