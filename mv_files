@@ -35,7 +35,10 @@ for el in tags:
 				dir_or_file = 'ELSE??'
 			print('moving %s: %s.' % (dir_or_file, down))
 			try:
-				shutil.move(full_path, os.path.join(DEST_DIR, down))
+				# turn regex back to normal directory names
+				el = el.replace('[\. _-]*', '_')
+				os.makedirs(os.path.join(DEST_DIR, el), exist_ok=True)
+				shutil.move(full_path, os.path.join(DEST_DIR, el, down))
 			except Exception as e:
 				print(e)
 
