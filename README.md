@@ -1,5 +1,5 @@
 # Porn Download Directory Categoriser (pddcat)
-Organise your download-everything-directory into different named directories using regex. Check [HOW TO](#how-to) & [functionality example](#functionality-example) below.
+Organise your all-in-one everything's-a-jumbled-mess downloads directory into different named directories using regex. Check [HOW TO](#how-to) & [functionality example](#functionality-example) below.
 
 ### USAGE
 ```
