@@ -1,5 +1,5 @@
 # Porn Download Directory Categoriser (pddcat) 🐈
-Organise your all-in-one everything's-a-jumbled-mess downloads directory into different directories based on models' names using regex. Check [HOW TO](#how-to) & [functionality example](#functionality-example) below.
+Organise your all-in-one everything's-a-jumbled-mess downloads directory into different directories based on models' names using regex. Check [HOW TO](#how-to-) & [functionality example](#functionality-example) below.
 
 I haven't tested it in Windows, but I'm fairly certain it should work without a hitch. Please send feedback to [topic #10](https://github.com/kittenparry/pddcat/issues/10) if you do.
 
