@@ -1,7 +1,7 @@
 # Porn Download Directory Categoriser (pddcat)
-Organise your download-everything-directory into named directories using regex. Check [HOW TO](#how-to) below.
+Organise your download-everything-directory into different named directories using regex. Check [HOW TO](#how-to) below.
 
-### Usage:
+### USAGE
 ```
 $ ./pddcat [OPTIONS]
 	
@@ -13,7 +13,7 @@ Options:
   -h, --help		Show this message and exit.
 ```
 
-### Contributing to model list:
+### Contributing to model list
 
 You can comment new names to topic [#9](https://github.com/kittenparry/pddcat/issues/9) or send a pull request to add more model names to [curated list](db/curated_list.txt) that you download with `-c` option.
 
@@ -47,7 +47,7 @@ DEST_DIR = os.path.join('c:/', 'path', 'to', 'dir')
 DEST_DIR = 'c:/path/to/dir'
 DEST_DIR = 'c:\path\\to\dir' # if you're into escapism
 ```
-### Notes:
+### NOTES
 
 Some uncorrectable shortcomings:
 
