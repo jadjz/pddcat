@@ -3,8 +3,30 @@
 # Creates a list with duplicates removed,
 # names starting with underscore or dash or is 'unorganised' filtered
 # and regex appended
+import os
 
-cleared_list = filter(None, open('list.txt').read().split('\n'))
+LOOP_PARTITION_LETTERS = ['d', 'e', 'f', 'g', 'h', 'j']
+LOOP_PATH = [
+	os.path.join('Archive', 'porn', 'vids'),
+	os.path.join('Archive', 'porn', 'pics'),
+	os.path.join('Downloads', 'porn'),
+	os.path.join('arch', 'porn') # same as ARCH_DIR
+]
+dirs_prefix = []
+for letter in LOOP_PARTITION_LETTERS:
+	dirs_prefix.append(os.path.join('/mnt', 'disk-%s' % letter))
+
+
+names_list = []
+for prefix in dirs_prefix:
+	for suffix in LOOP_PATH:
+		try:
+			names_list += os.listdir(os.path.join(prefix, suffix))
+		except FileNotFoundError:
+			pass
+
+
+cleared_list = filter(None, names_list)
 cleared_list = list(dict.fromkeys(cleared_list))
 temp = []
 
