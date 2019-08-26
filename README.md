@@ -54,4 +54,4 @@ An uncorrectable shortcoming is it can't tell the difference between `Nadya Naba
 
 ### LICENSING
 
-The `pddcat` is licensed under GNU General Public License v3.0 (GPL-3.0), see [LICENSE](LICENSE).
+`pddcat` is licensed under GNU General Public License v3.0 (GPL-3.0), see [LICENSE](LICENSE).
