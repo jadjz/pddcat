@@ -14,7 +14,6 @@ Options:
 ```
 
 ### Contributing to model list
-
 You can comment new names to [topic #9](https://github.com/kittenparry/pddcat/issues/9) or send a pull request to add more model names to [curated list](db/curated_list.txt) that you download with `-c` option.
 
 ## HOW TO
@@ -41,7 +40,8 @@ DEST_DIR = os.path.join('c:/', 'path', 'to', 'dir')
 DEST_DIR = 'c:/path/to/dir'
 DEST_DIR = 'c:\path\\to\dir' # if you're into escapism
 ```
-#### Functionality example  
+
+#### Functionality Example
  * DWN_DIR is `~/dwn`
  * DEST_DIR is `~/arch`
  * `~/dwn/ariana.marie.awards.mp4` --> `~/arch/ariana_marie/ariana.marie.awards.mp4`
@@ -51,9 +51,7 @@ DEST_DIR = 'c:\path\\to\dir' # if you're into escapism
  * Meaning into their separate directories based on name.
 
 ### NOTES
-
 An uncorrectable shortcoming is it can't tell the difference between `Nadya Nabakova` and `Bunny Colby`, who are the same person with different names/aliases. Depending on the file/directory name, it will put them into separate directories.
 
 ### LICENSING
-
 `pddcat` is licensed under GNU General Public License v3.0 (GPL-3.0), see [LICENSE](LICENSE).
