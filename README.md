@@ -13,6 +13,10 @@ Options:
   -h, --help		Show this message and exit.
 ```
 
+### Contributing to model list:
+
+You can comment new names to topic [#9](https://github.com/kittenparry/pddcat/issues/9) or send a pull request to add more model names to [curated list](db/curated_list.txt) that you download with `-c` option.
+
 ## HOW TO
 Edit `DWN_DIR` and `DEST_DIR` in program to use for your own needs.
 
@@ -43,3 +47,6 @@ DEST_DIR = os.path.join('c:/', 'path', 'to', 'dir')
 DEST_DIR = 'c:/path/to/dir'
 DEST_DIR = 'c:\path\\to\dir' # if you're into escapism
 ```
+### LICENSING
+
+The `pddcat` is licensed under GNU General Public License v3.0 (GPL-3.0), see [LICENSE](LICENSE).
