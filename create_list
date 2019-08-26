@@ -9,6 +9,7 @@ ext=(
 	Archive/porn/vids
 	Archive/porn/pics
 	Downloads/porn
+	arch/porn
 )
 
 for d in {d..j}; do
