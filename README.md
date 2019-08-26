@@ -18,7 +18,7 @@ Options:
 You can comment new names to [topic #9](https://github.com/kittenparry/pddcat/issues/9) or send a pull request to add more model names to [curated list](db/curated_list.txt) that you download with `-c` option.
 
 ## HOW TO
-Edit `DWN_DIR` and `DEST_DIR` in program to use for your own needs See *functionality example* below.
+Edit `DWN_DIR` and `DEST_DIR` in program to use for your own needs. See *functionality example* below.
 
 **DWN_DIR:** User downloads directory (source), this is where you keep all your mumbled/jumbled downloads.  
 **DEST_DIR:** User archive directory (destination), where named directories are created and your downloads get organised into.  
