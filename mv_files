@@ -11,7 +11,7 @@ DWN_DIR = os.path.join('/mnt', 'disk-j', 'lin_downs_c')
 ARCH_DIR = os.path.join('/mnt', 'disk-j', 'arch')
 DEST_DIR = os.path.join(ARCH_DIR, 'porn')
 LOG = os.path.join(ARCH_DIR, 'log')
-LIST_FILE = 'filtered_list.txt'
+LIST_FILE = os.path.join(os.path.expanduser('~'), 'git', 'downloads-categoriser', 'filtered_list.txt')
 
 
 with open(LIST_FILE) as f:
