@@ -1,3 +1,8 @@
+# Using -c option, has been downloaded from https://github.com/kittenparry/pddcat/blob/master/db/curated_list.txt
+# Edit at your own risk, for it will be overwritten if -c is used again.
+# Instead use custom_list.txt to add your own model names.
+# Comment or send a pull request to add to curated_list.txt.
+# Check #9 on GitHub.
 kendra_sunderland
 monique_alexander
 christie_stevens

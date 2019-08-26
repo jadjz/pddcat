@@ -3,83 +3,136 @@
 import os
 import re
 import shutil
-import time
 import sys
-
-# ---
-# OTH
-# ---
+import urllib.request
 
 # absolute path of where pddcat is
-# TODO: likely place list files here or in pddcat_lists/
-pddcat_dir = os.path.dirname(os.path.realpath(__file__))
+PDDCAT_DIR = os.path.dirname(os.path.realpath(__file__))
+PDDCAT_SUBDIR = os.path.join(PDDCAT_DIR, 'pddcat_files')
+CURATED_LIST = os.path.join(PDDCAT_SUBDIR, 'curated_list.txt')
+CUSTOM_LIST = os.path.join(PDDCAT_SUBDIR, 'custom_list.txt')
 
+ARG_LIST = [
+	'-c', '--curated-list',
+	'-a', '--add',
+	'-h', '--help'
+	]
+class COL:
+	FAIL = '\033[91m'
+	WARNING = '\033[93m'
+	ENDC = '\033[0m'
 
+# ---
+# START
+# ---
 
+def start():
+	create_custom_list()
+	if len(sys.argv) == 1:
+		move_dirs()
+	else:
+		while len(sys.argv) > 1:
+			opt = str(sys.argv[1])
+			if opt == '-c' or opt == '--curated-list':
+				download_list()
+			elif opt == '-a' or opt == '--add':
+				check_and_add()
+			elif opt == '-h' or opt == '--help':
+				print('here be help')
+				sys.exit()
+
+			del(sys.argv[1])
+
+# ---
+# ARG FUNCS
+# ---
+
+def create_custom_list():
+	if not os.path.isdir(PDDCAT_SUBDIR):
+		os.makedirs(PDDCAT_SUBDIR)
+		print('%s has been created.' % PDDCAT_SUBDIR)
+	if not os.path.isfile(CUSTOM_LIST):
+		with open(CUSTOM_LIST, 'w') as custom:
+			custom.writelines('# Usage -a <model> <model2>... option or manually add model names you want.\n' \
+				'# Use underscore (_) when a space is needed. Eg. riley_reid\n')
+			print('%s has been created.\nUse -a <model> <model2>... option to add models.' % CUSTOM_LIST)
+
+def check_and_add():
+	if len(sys.argv) < 3:
+		print('Invalid number of arguments. Check help with -h option.')
+		sys.exit(1)
+	else:
+		append_list = []
+		while (len(sys.argv) >= 3) and (not sys.argv[2] in ARG_LIST) :
+			append_list.append(sys.argv[2])
+			del(sys.argv[2])
+		try:
+			with open(CUSTOM_LIST, 'a') as custom:
+				custom.writelines('\n'.join(append_list) + '\n')
+			print('%s tag(s) has been appended to custom_list.txt.' % ', '.join(append_list))
+		except Exception as e:
+			prn_gen_err(e)
+
+def get_opener():
+		"""Set request user-agent."""
+		opener = urllib.request.build_opener()
+		opener.addheaders = [('User-agent', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36')]
+		urllib.request.install_opener(opener)
+
+def download_list():
+	LIST_URL = 'https://raw.githubusercontent.com/kittenparry/pddcat/master/db/curated_list.txt'
+	get_opener()
+	try:
+		urllib.request.urlretrieve(LIST_URL, CURATED_LIST)
+		print('Curated list has been downloaded to %s' % CURATED_LIST)
+	except Exception as e:
+		prn_gen_err(e)
 
 # ---
 # GET LIST
 # ---
 
 def get_lists():
-	LOOP_PARTITION_LETTERS = ['d', 'e', 'f', 'g', 'h', 'j']
-	LOOP_PATH = [
-		os.path.join('Archive', 'porn', 'vids'),
-		os.path.join('Archive', 'porn', 'pics'),
-		os.path.join('Downloads', 'porn'),
-		os.path.join('arch', 'porn') # same as ARCH_DIR
-	]
-	dirs_prefix = []
-	for letter in LOOP_PARTITION_LETTERS:
-		dirs_prefix.append(os.path.join('/mnt', 'disk-%s' % letter))
-
-
 	temp_names_list = []
-	for prefix in dirs_prefix:
-		for suffix in LOOP_PATH:
-			try:
-				temp_names_list += os.listdir(os.path.join(prefix, suffix))
-			except FileNotFoundError:
-				pass
-
+	try:
+		temp_names_list += filter(None, open(CURATED_LIST).read().split('\n'))
+	except FileNotFoundError as e:
+		print('%sWARNING%s: curated_list.txt does not exist, use -c option to download.' % (COL.WARNING, COL.ENDC))
+	try:
+		temp_names_list += filter(None, open(CUSTOM_LIST).read().split('\n'))
+	except FileNotFoundError as e:
+		print('%sWARNING%s: custom_list.txt does not exist, re-run the program with no parameters to create it.\n' \
+			'Or check writing permissions.' % (COL.WARNING, COL.ENDC))
 
 	cleared_list = filter(None, temp_names_list)
 	cleared_list = list(dict.fromkeys(cleared_list))
 	reg_names = []
 
 	for el in cleared_list:
-		# don't add names that start with underscore or dash or is 'unorganised'
-		# or is 'rin', too short and causing a lot of headache
-		if el.startswith('_') or el.startswith('-') or el == 'unorganised' or el == 'rin':
-			# for whatever reason this didn't catch a few, so we're doing it the other way
-			# cleared_list.remove(el)
+		# don't add names that start with a hash
+		if el.startswith('#'):
 			pass
 		else:
-			# replace _ with regex whitespace or dot
+			# replace _ with regex whitespace or dot or nothing
 			el = el.replace('_', '[\. _-]*')
 			reg_names.append(el)
 
-	# sort by length descending test
+	# sort by length descending
 	temp = sorted(reg_names, key=len)
 	temp.reverse()
 	return temp
 
 # ---
-# MOVE DIRS/FILES:
+# MOVE DIRS/FILES
 # ---
 
 def move_dirs():
 	DWN_DIR = os.path.join('/mnt', 'disk-j', 'lin_downs_c')
-	ARCH_DIR = os.path.join('/mnt', 'disk-j', 'arch')
-	DEST_DIR = os.path.join(ARCH_DIR, 'porn')
-	LOG = os.path.join(ARCH_DIR, 'log')
-
+	DEST_DIR = os.path.join('/mnt', 'disk-j', 'arch', 'porn')
 
 	tags = list(get_lists())
 	downloads = os.listdir(DWN_DIR)
-	total_time = 0
 	num_of_mv = 0
-	start = time.time()
 
 	for tag in tags:
 		match = list(filter(re.compile(tag, re.IGNORECASE).search, downloads))
@@ -93,42 +146,27 @@ def move_dirs():
 					dir_or_file = 'FILE'
 				else:
 					dir_or_file = 'ELSE??'
-				print('moving %s: %s.' % (dir_or_file, down))
+				print('Moving %s: %s.' % (dir_or_file, down))
 				try:
 					# turn regex back to normal directory names
 					tag = tag.replace('[\. _-]*', '_')
 					os.makedirs(os.path.join(DEST_DIR, tag), exist_ok=True)
 					shutil.move(full_path, os.path.join(DEST_DIR, tag, down))
+				except FileNotFoundError as e:
+					print('%sWARNING%s: Multiple model directories/files only get moved to one directory. See issue #4 on GitHub.' % (COL.WARNING, COL.ENDC))
 				except Exception as e:
-					print(e)
+					prn_gen_err(e)
 
 	if num_of_mv == 0:
-		print('nothing moved. exiting.')
+		print('No matches, nothing moved. Terminating...')
 		sys.exit()
 
-	end = time.time()
-	passed = end - start
-	total_time += passed
-	stat = '%s: moving %d objects took %.2f seconds.\n' % (time.strftime('%Y-%m-%d %H:%M:%S'), num_of_mv, total_time)
-	with open(LOG, 'a') as l:
-		l.write(stat)
-
 # ---
-# START
+# OTH
 # ---
 
-def start():
-	if len(sys.argv) == 1:
-		move_dirs()
-	else:
-		while len(sys.argv) > 1:
-			opt = str(sys.argv[1])
-			if opt == '-c' or opt == '':
-				pass
-			elif opt == '-a' or opt == '--add':
-				pass
-			elif opt == '-h' or opt == '--help':
-				pass
+def prn_gen_err(e):
+	print('%sERROR%s: %s', (COL.FAIL, COL.ENDC, e))
 
 
 if __name__ == '__main__':

@@ -1,8 +1,0 @@
-#!/usr/bin/env python3
-
-import requests
-
-URL = 'https://gist.githubusercontent.com/kittenparry/158526b3672e50f06478c94d0b52f791/raw/253117e787c7316740dcabab2e87e04177a81c63/test_names.txt'
-
-data = requests.get(URL).text.split('\n')
-print(data)
