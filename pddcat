@@ -6,21 +6,61 @@ import shutil
 import sys
 import urllib.request
 
+# ---
+# CONST
+# ---
+
+"""
+	EDIT THESE 2 VARIABLES FOR YOUR OWN USE
+
+	DWN_DIR: User downloads directory (source).
+	DEST_DIR: User archive directory (destination), where named directories are created.
+
+	Use os.path.expanduser('~') to get '~'
+
+	Linux:   os.path.join('/home', 'path', 'to', 'dir')
+	Windows: os.path.join('c:/', 'path', 'to', 'dir')
+
+	Or you can try using a string at your own discretion.
+	DON'T END IN A SLASH (/ or \)!
+	Linux:   '/home/path/to/dir'
+	Windows: 'c:/path/to/dir' or 'c:\path\\to\dir' (if you'd like to escape everything)
+"""
+DWN_DIR = os.path.join('/mnt', 'disk-j', 'lin_downs_c')
+DEST_DIR = os.path.join('/mnt', 'disk-j', 'arch', 'porn')
+
+# curated list direct url
+LIST_URL = 'https://raw.githubusercontent.com/kittenparry/pddcat/master/db/curated_list.txt'
+
 # absolute path of where pddcat is
 PDDCAT_DIR = os.path.dirname(os.path.realpath(__file__))
 PDDCAT_SUBDIR = os.path.join(PDDCAT_DIR, 'pddcat_files')
 CURATED_LIST = os.path.join(PDDCAT_SUBDIR, 'curated_list.txt')
 CUSTOM_LIST = os.path.join(PDDCAT_SUBDIR, 'custom_list.txt')
 
+# -a stops reading when it hits one of these
 ARG_LIST = [
 	'-c', '--curated-list',
 	'-a', '--add',
 	'-h', '--help'
 	]
+
+# colourful messages
 class COL:
 	FAIL = '\033[91m'
 	WARNING = '\033[93m'
+	UNDERLINE = '\033[4m'
+	BOLD = '\033[1m'
 	ENDC = '\033[0m'
+
+HELP = """Usage: ./pddcat [OPTIONS]
+
+Options:
+  -c, --curated-list\tDownload a list of model names for a quick start.
+  -a, --add <m> <m2>...\tAdd your own model names to a different file.
+\t\t\tUse underscore (_) when a space is needed. e.g. riley_reid
+\t\t\tAnd spaces to separate different names. e.g. siri bryci
+  -h, --help\t\tShow this message and exit."""
 
 # ---
 # START
@@ -38,7 +78,7 @@ def start():
 			elif opt == '-a' or opt == '--add':
 				check_and_add()
 			elif opt == '-h' or opt == '--help':
-				print('here be help')
+				print(HELP)
 				sys.exit()
 
 			del(sys.argv[1])
@@ -54,12 +94,19 @@ def create_custom_list():
 	if not os.path.isfile(CUSTOM_LIST):
 		with open(CUSTOM_LIST, 'w') as custom:
 			custom.writelines('# Usage -a <model> <model2>... option or manually add model names you want.\n' \
-				'# Use underscore (_) when a space is needed. Eg. riley_reid\n')
-			print('%s has been created.\nUse -a <model> <model2>... option to add models.' % CUSTOM_LIST)
+				'# Use underscore (_) when a space is needed. e.g. riley_reid\n')
+		print('%s has been created.\nUse -a <model> <model2>... option to add models.' % CUSTOM_LIST)
+		print('-----\n%sFirst time start message%s\n' \
+			'Please change %sDWN_DIR%s & %sDEST_DIR%s variables to your needs.\n' \
+			'Read top of the file or GitHub repo on how to.\n' \
+			'If you keep seeing this message make sure you have write permissions & custom_list.txt exists.\n' \
+			'Terminating now. Please rerun for actual functionality.' % 
+			(COL.UNDERLINE, COL.ENDC, COL.BOLD, COL.ENDC, COL.BOLD, COL.ENDC))
+		sys.exit()
 
 def check_and_add():
 	if len(sys.argv) < 3:
-		print('Invalid number of arguments. Check help with -h option.')
+		print('%sERROR%s: Invalid number of arguments. Check help with -h option.' % (COL.FAIL, COL.ENDC))
 		sys.exit(1)
 	else:
 		append_list = []
@@ -80,7 +127,6 @@ def get_opener():
 		urllib.request.install_opener(opener)
 
 def download_list():
-	LIST_URL = 'https://raw.githubusercontent.com/kittenparry/pddcat/master/db/curated_list.txt'
 	get_opener()
 	try:
 		urllib.request.urlretrieve(LIST_URL, CURATED_LIST)
@@ -127,9 +173,6 @@ def get_lists():
 # ---
 
 def move_dirs():
-	DWN_DIR = os.path.join('/mnt', 'disk-j', 'lin_downs_c')
-	DEST_DIR = os.path.join('/mnt', 'disk-j', 'arch', 'porn')
-
 	tags = list(get_lists())
 	downloads = os.listdir(DWN_DIR)
 	num_of_mv = 0
