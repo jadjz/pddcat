@@ -18,7 +18,7 @@ Options:
 You can comment new names to [topic #9](https://github.com/kittenparry/pddcat/issues/9) or send a pull request to add more model names to [curated list](db/curated_list.txt) that you download with `-c` option.
 
 ## HOW TO
-Edit `DWN_DIR` and `DEST_DIR` in program to use for your own needs See *example* below.
+Edit `DWN_DIR` and `DEST_DIR` in program to use for your own needs See *functionality example* below.
 
 **DWN_DIR:** User downloads directory (source), this is where you keep all your mumbled/jumbled downloads.  
 **DEST_DIR:** User archive directory (destination), where named directories are created and your downloads get organised into.  
@@ -41,7 +41,7 @@ DEST_DIR = os.path.join('c:/', 'path', 'to', 'dir')
 DEST_DIR = 'c:/path/to/dir'
 DEST_DIR = 'c:\path\\to\dir' # if you're into escapism
 ```
-Example:  
+Functionality example:  
  * DWN_DIR is `~/mydownloads`
  * DEST_DIR is `~/archive`
  * Your `ariana.marie.awards.mp4` file in `mydownloads` gets moved to `~/archive/ariana_marie/ariana.marie.awards.mp4`
@@ -50,7 +50,7 @@ Example:
 
 ### NOTES
 
-* An uncorrectable shortcoming is it can't tell the difference between `Nadya Nabakova` and `Bunny Colby`, who are the same person with different names/aliases. Depending on the file/directory name, it will put them into separate directories.
+An uncorrectable shortcoming is it can't tell the difference between `Nadya Nabakova` and `Bunny Colby`, who are the same person with different names/aliases. Depending on the file/directory name, it will put them into separate directories.
 
 ### LICENSING
 
