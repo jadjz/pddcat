@@ -24,8 +24,8 @@ Edit `DWN_DIR` and `DEST_DIR` in program to use for your own needs See *function
 **DEST_DIR:** User archive directory (destination), where named directories are created and your downloads get organised into.  
 
 How to edit variables:  
-* Use either `os.path.join()` or a string at your own discreation.
-* If using a string, DON'T END IN A SLASH (`/` or `\`)!
+* Use either `os.path.join()` or an absolute path string at your own discretion.
+* If using a string, DON'T END IN A SLASH (`/` or `\`).
 * `os.path.join()` is recommended.
 * Use `os.path.expanduser('~')` to get get `$HOME`.
 
@@ -41,7 +41,7 @@ DEST_DIR = os.path.join('c:/', 'path', 'to', 'dir')
 DEST_DIR = 'c:/path/to/dir'
 DEST_DIR = 'c:\path\\to\dir' # if you're into escapism
 ```
-Functionality example:  
+#### Functionality example  
  * DWN_DIR is `~/mydownloads`
  * DEST_DIR is `~/archive`
  * Your `ariana.marie.awards.mp4` file in `mydownloads` gets moved to `~/archive/ariana_marie/ariana.marie.awards.mp4`
