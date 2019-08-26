@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 
 # Creates a list with duplicates removed,
 # names starting with underscore or dash or is 'unorganised' filtered
@@ -9,7 +10,8 @@ temp = []
 
 for el in cleared_list:
 	# don't add names that start with underscore or dash or is 'unorganised'
-	if el.startswith('_') or el.startswith('-') or el == 'unorganised':
+	# or is 'rin', too short and causing a lot of headache
+	if el.startswith('_') or el.startswith('-') or el == 'unorganised' or el == 'rin':
 		# for whatever reason this didn't catch a few, so we're doing it the other way
 		# cleared_list.remove(el)
 		pass

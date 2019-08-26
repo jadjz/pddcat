@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # path to files currently sitting at completed downloads
-files=(/mnt/disk-e/lin_downs_c/*)
+files=(/mnt/disk-j/lin_downs/*) # TODO: change to lin_downs_c after testing
 # lowercase the file list
 files_lower=()
 for file in "${files[@]}"; do
