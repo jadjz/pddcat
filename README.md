@@ -42,10 +42,12 @@ DEST_DIR = 'c:/path/to/dir'
 DEST_DIR = 'c:\path\\to\dir' # if you're into escapism
 ```
 #### Functionality example  
- * DWN_DIR is `~/mydownloads`
- * DEST_DIR is `~/archive`
- * Your `ariana.marie.awards.mp4` file in `mydownloads` gets moved to `~/archive/ariana_marie/ariana.marie.awards.mp4`
- * Your `bryci_youtube_playlist` directory with everything inside intact in `mydownloads` gets moved to `~/archive/bryci/bryci_youtube_playlist/`
+ * DWN_DIR is `~/dwn`
+ * DEST_DIR is `~/arch`
+ * `~/dwn/ariana.marie.awards.mp4` --> `~/arch/ariana_marie/ariana.marie.awards.mp4`
+ * `~/dwn/bryci_youtube_playlist/` --> `~/arch/bryci/bryci_youtube_playlist/`
+ * `~/dwn/18.02.25.Lana.Rhoades.And.Jade.Nile.XXX.1080p/` --> `~/arch/lana_rhoades/18.02.25.Lana.Rhoades.And.Jade.Nile.XXX.1080p/`
+   * `lana_rhoades` is longer than `jade_nile` in character length and gets checked, matched & moved to first. See [issue #4](https://github.com/kittenparry/pddcat/issues/4) for multiple models moving.
  * Meaning into their separate directories based on name.
 
 ### NOTES
