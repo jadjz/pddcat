@@ -7,6 +7,17 @@ import time
 import sys
 
 # ---
+# OTH
+# ---
+
+# absolute path of where pddcat is
+# TODO: likely place list files here or in pddcat_lists/
+pddcat_dir = os.path.dirname(os.path.realpath(__file__))
+
+
+
+
+# ---
 # GET LIST
 # ---
 
