@@ -12,24 +12,11 @@ import argparse
 # CONST
 # ---
 
-"""
-	EDIT THESE 2 VARIABLES FOR YOUR OWN USE
-
-	DWN_DIR: User downloads directory (source).
-	DEST_DIR: User archive directory (destination), where named directories are created.
-
-	Use os.path.expanduser('~') to get '~'
-
-	Linux:   os.path.join('/home', 'path', 'to', 'dir')
-	Windows: os.path.join('c:/', 'path', 'to', 'dir')
-
-	Or you can try using a string at your own discretion.
-	DON'T END IN A SLASH (/ or \)!
-	Linux:   '/home/path/to/dir'
-	Windows: 'c:/path/to/dir' or 'c:\path\\to\dir' (if you'd like to escape everything)
-"""
-DWN_DIR = os.path.join('/mnt', 'disk-j', 'lin_downs_c')
-DEST_DIR = os.path.join('/mnt', 'disk-j', 'arch', 'porn')
+DWN_DIR = ''
+DEST_DIR = ''
+# default values for initial config
+DEF_DWN_DIR = ''
+DEF_DEST_DIR = ''
 
 # curated list direct url
 LIST_URL = 'https://raw.githubusercontent.com/kittenparry/pddcat/master/db/curated_list.txt'
@@ -39,6 +26,7 @@ PDDCAT_DIR = os.path.dirname(os.path.realpath(__file__))
 PDDCAT_SUBDIR = os.path.join(PDDCAT_DIR, 'pddcat_files')
 CURATED_LIST = os.path.join(PDDCAT_SUBDIR, 'curated_list.txt')
 CUSTOM_LIST = os.path.join(PDDCAT_SUBDIR, 'custom_list.txt')
+CONFIG = os.path.join(PDDCAT_SUBDIR, 'pddcat.conf')
 
 # colourful messages
 class COL:
@@ -54,6 +42,8 @@ class COL:
 		BOLD = ''
 		ENDC = ''
 
+CONF_CONT = '# src=path/to/src\n# dest=path/to/dest\n# Tilde (~) could be used instead of absolute path to home.\n# Check --help to set up from command line\nsrc=%s\ndest=%s\n'
+
 # ---
 # START
 # ---
@@ -61,28 +51,31 @@ class COL:
 def start():
 	create_custom_list()
 
-	parser = argparse.ArgumentParser(description='Organise your porn download directory into separate directories.')
-	parser.add_argument('-c', '--curated-list',
-		help='download a list of model names for a quick start.', action='store_true')
-	parser.add_argument('-a', '--add', metavar='name',
-		help='add your own model names to a different file. use underscore (_) in place of spaces and space to separate more than one names. e.g. riley_reid bryci',
-		type=str, nargs='+')
+	parser = argparse.ArgumentParser(description='Organise your all-in-one porn download directory into separate directories by model names.')
 	parser.add_argument('-s', '--source', metavar='path',
 		help='downloads dir where files are matched & moved from.',
 		type=str)
 	parser.add_argument('-d', '--dest', metavar='path',
 		help='archive dir where directories with model names are created & files moved to.',
 		type=str)
+	parser.add_argument('-c', '--curated-list',
+		help='download a list of model names for a quick start.', action='store_true')
+	parser.add_argument('-a', '--add', metavar='name',
+		help='add your own model names to a different file. use underscore (_) in place of spaces and space to separate more than one names. e.g. riley_reid bryci',
+		type=str, nargs='+')
 
 	args = parser.parse_args()
+	read_conf()
 	if len(sys.argv) == 1:
+		is_paths_set()
 		move_dirs()
 	else:
+		if args.source or args.dest:
+			edit_conf(args.source, args.dest)
 		if args.curated_list:
 			download_list()
 		if args.add:
 			add_names(args.add)
-		# here's what i needed, ability to check if args.source & args.dest both exists
 
 # ---
 # ARG FUNCS
@@ -92,14 +85,17 @@ def create_custom_list():
 	if not os.path.isdir(PDDCAT_SUBDIR):
 		os.makedirs(PDDCAT_SUBDIR)
 		print('%s has been created.' % PDDCAT_SUBDIR)
+	if not os.path.isfile(CONFIG):
+		with open(CONFIG, 'w') as conf:
+			conf.writelines(CONF_CONT % (DEF_DWN_DIR, DEF_DEST_DIR))
 	if not os.path.isfile(CUSTOM_LIST):
 		with open(CUSTOM_LIST, 'w') as custom:
 			custom.writelines('# Usage -a <model> <model2>... option or manually add model names you want.\n' \
 				'# Use underscore (_) when a space is needed. e.g. riley_reid\n')
 		print('%s has been created.\nUse -a <model> <model2>... option to add models.' % CUSTOM_LIST)
 		print('-----\n%sFirst time start message%s\n' \
-			'Please change %sDWN_DIR%s & %sDEST_DIR%s variables to your needs.\n' \
-			'Read top of the file or GitHub repo on how to.\n' \
+			'Please change %ssource%s & %sdestination%s paths to your needs using:\n' \
+			' -s /path/to/src -d /path/to/dest\n' \
 			'If you keep seeing this message make sure you have write permissions & custom_list.txt exists.\n' \
 			'Terminating now. Please rerun for actual functionality.' % 
 			(COL.UNDERLINE, COL.ENDC, COL.BOLD, COL.ENDC, COL.BOLD, COL.ENDC))
@@ -126,6 +122,65 @@ def download_list():
 		print('Curated list has been downloaded to %s' % CURATED_LIST)
 	except Exception as e:
 		prn_gen_err(e)
+
+def edit_conf(src, dest):
+	global DWN_DIR, DEST_DIR
+	if src == None:
+		src = DWN_DIR
+	if dest == None:
+		dest = DEST_DIR
+
+	try:
+		with open(CONFIG, 'w') as conf:
+			data = CONF_CONT % (src, dest)
+			conf.writelines(data)
+	except Exception as e:
+		prn_gen_err(e)
+
+def read_conf():
+	global DWN_DIR, DEST_DIR
+	try:
+		temp = list(filter(None, open(CONFIG).read().split('\n')))
+		for line in temp:
+			if line.startswith('#'):
+				pass
+			else:
+				if line.startswith('src='):
+					DWN_DIR = check_path(line, 'src=')
+				if line.startswith('dest='):
+					DEST_DIR = check_path(line, 'dest=')
+	except FileNotFoundError as e:
+		print('%sWARNING%s: pddcat.conf does not exist, re-run the program with no parameters to create it.\n' \
+			'Or check writing permissions.' % (COL.WARNING, COL.ENDC))
+
+# src or dest
+def check_path(line, sord):
+	input_src = line.replace(sord, '', 1).strip()
+	if input_src == '':
+		return ''
+	input_src = if_home(input_src)
+	if os.path.isdir(input_src):
+		return input_src
+	else:
+		try:
+			os.makedirs(input_src)
+			return input_src
+		except Exception as e:
+			print('%sERROR%s: Can not create %s.\nCheck write permissions or make sure it is a proper path.' % (COL.FAIL, COL.ENDC, input_src))
+			return ''
+
+def if_home(val):
+	if val.startswith('~'):
+		return val.replace('~', os.path.expanduser('~'), 1)
+	return val
+
+def is_paths_set():
+	global DWN_DIR, DEST_DIR
+	if DWN_DIR == '' or DEST_DIR == '':
+		print('%sERROR%s: Please set %ssource%s & %sdestination%s directory using\n -s /path/to/dir -d /path/to/dir\n' \
+			'Or manually in %s.\nCheck help with -h. Terminating...' % 
+			(COL.FAIL, COL.ENDC, COL.BOLD, COL.ENDC, COL.BOLD, COL.ENDC, CONFIG))
+		sys.exit(1)
 
 # ---
 # GET LIST
@@ -202,7 +257,7 @@ def move_dirs():
 # ---
 
 def prn_gen_err(e):
-	print('%sERROR%s: %s', (COL.FAIL, COL.ENDC, e))
+	print('%sERROR%s: %s' % (COL.FAIL, COL.ENDC, e))
 
 
 if __name__ == '__main__':
