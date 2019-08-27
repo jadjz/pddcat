@@ -6,6 +6,7 @@ import shutil
 import sys
 import urllib.request
 import platform
+import argparse
 
 # ---
 # CONST
@@ -39,13 +40,6 @@ PDDCAT_SUBDIR = os.path.join(PDDCAT_DIR, 'pddcat_files')
 CURATED_LIST = os.path.join(PDDCAT_SUBDIR, 'curated_list.txt')
 CUSTOM_LIST = os.path.join(PDDCAT_SUBDIR, 'custom_list.txt')
 
-# -a stops reading when it hits one of these
-ARG_LIST = [
-	'-c', '--curated-list',
-	'-a', '--add',
-	'-h', '--help'
-	]
-
 # colourful messages
 class COL:
 	FAIL = '\033[91m'
@@ -60,35 +54,35 @@ class COL:
 		BOLD = ''
 		ENDC = ''
 
-HELP = """Usage: ./pddcat [OPTIONS]
-
-Options:
-  -c, --curated-list\tDownload a list of model names for a quick start.
-  -a, --add <m> <m2>...\tAdd your own model names to a different file.
-\t\t\tUse underscore (_) when a space is needed. e.g. riley_reid
-\t\t\tAnd spaces to separate different names. e.g. siri bryci
-  -h, --help\t\tShow this message and exit."""
-
 # ---
 # START
 # ---
 
 def start():
 	create_custom_list()
+
+	parser = argparse.ArgumentParser(description='Organise your porn download directory into separate directories.')
+	parser.add_argument('-c', '--curated-list',
+		help='download a list of model names for a quick start.', action='store_true')
+	parser.add_argument('-a', '--add', metavar='name',
+		help='add your own model names to a different file. use underscore (_) in place of spaces and space to separate more than one names. e.g. riley_reid bryci',
+		type=str, nargs='+')
+	parser.add_argument('-s', '--source', metavar='path',
+		help='downloads dir where files are matched & moved from.',
+		type=str)
+	parser.add_argument('-d', '--dest', metavar='path',
+		help='archive dir where directories with model names are created & files moved to.',
+		type=str)
+
+	args = parser.parse_args()
 	if len(sys.argv) == 1:
 		move_dirs()
 	else:
-		while len(sys.argv) > 1:
-			opt = str(sys.argv[1])
-			if opt == '-c' or opt == '--curated-list':
-				download_list()
-			elif opt == '-a' or opt == '--add':
-				check_and_add()
-			elif opt == '-h' or opt == '--help':
-				print(HELP)
-				sys.exit()
-
-			del(sys.argv[1])
+		if args.curated_list:
+			download_list()
+		if args.add:
+			add_names(args.add)
+		# here's what i needed, ability to check if args.source & args.dest both exists
 
 # ---
 # ARG FUNCS
@@ -111,21 +105,13 @@ def create_custom_list():
 			(COL.UNDERLINE, COL.ENDC, COL.BOLD, COL.ENDC, COL.BOLD, COL.ENDC))
 		sys.exit()
 
-def check_and_add():
-	if len(sys.argv) < 3:
-		print('%sERROR%s: Invalid number of arguments. Check help with -h option.' % (COL.FAIL, COL.ENDC))
-		sys.exit(1)
-	else:
-		append_list = []
-		while (len(sys.argv) >= 3) and (not sys.argv[2] in ARG_LIST) :
-			append_list.append(sys.argv[2])
-			del(sys.argv[2])
-		try:
-			with open(CUSTOM_LIST, 'a') as custom:
-				custom.writelines('\n'.join(append_list) + '\n')
-			print('%s tag(s) has been appended to custom_list.txt.' % ', '.join(append_list))
-		except Exception as e:
-			prn_gen_err(e)
+def add_names(names):
+	try:
+		with open(CUSTOM_LIST, 'a') as custom:
+			custom.writelines('\n'.join(names) + '\n')
+		print('%s tag(s) has been appended to custom_list.txt.' % ', '.join(names))
+	except Exception as e:
+		prn_gen_err(e)
 
 def get_opener():
 		"""Set request user-agent."""
