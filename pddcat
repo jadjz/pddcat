@@ -5,6 +5,7 @@ import re
 import shutil
 import sys
 import urllib.request
+import platform
 
 # ---
 # CONST
@@ -52,6 +53,12 @@ class COL:
 	UNDERLINE = '\033[4m'
 	BOLD = '\033[1m'
 	ENDC = '\033[0m'
+	if platform.system() == 'Windows':
+		FAIL = ''
+		WARNING = ''
+		UNDERLINE = ''
+		BOLD = ''
+		ENDC = ''
 
 HELP = """Usage: ./pddcat [OPTIONS]
 
