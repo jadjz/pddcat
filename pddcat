@@ -45,7 +45,8 @@ class COL:
 		ENDC = ''
 
 # configuration text
-CONF_CONT = '# src=path/to/src\n# dest=path/to/dest\n# Tilde (~) could be used instead of absolute path to home.\n# Check --help to set up from command line\nsrc=%s\ndest=%s\n'
+CONF_CONT = '# src=path/to/src\n# dest=path/to/dest\n# Tilde (~) could be used instead of absolute path to home.\n' \
+	'# Check --help to set up from command line\nsrc=%s\ndest=%s\n'
 
 # ---
 # START
@@ -169,7 +170,7 @@ def read_conf():
 					DWN_DIR = check_path(line, 'src=')
 				if line.startswith('dest='):
 					DEST_DIR = check_path(line, 'dest=')
-	except FileNotFoundError as e:
+	except FileNotFoundError:
 		print('%sWARNING%s: pddcat.conf does not exist, re-run the program with no parameters to create it.\n' \
 			'Or check writing permissions.' % (COL.WARNING, COL.ENDC))
 
@@ -227,11 +228,11 @@ def get_lists():
 	temp_names_list = []
 	try:
 		temp_names_list += filter(None, open(CURATED_LIST).read().split('\n'))
-	except FileNotFoundError as e:
+	except FileNotFoundError:
 		print('%sWARNING%s: curated_list.txt does not exist, use -c option to download.' % (COL.WARNING, COL.ENDC))
 	try:
 		temp_names_list += filter(None, open(CUSTOM_LIST).read().split('\n'))
-	except FileNotFoundError as e:
+	except FileNotFoundError:
 		print('%sWARNING%s: custom_list.txt does not exist, re-run the program with no parameters to create it.\n' \
 			'Or check writing permissions.' % (COL.WARNING, COL.ENDC))
 
@@ -283,8 +284,9 @@ def move_dirs():
 					tag = tag.replace('[\. _-]*', '_')
 					os.makedirs(os.path.join(DEST_DIR, tag), exist_ok=True)
 					shutil.move(full_path, os.path.join(DEST_DIR, tag, down))
-				except FileNotFoundError as e:
-					print('%sWARNING%s: Multiple model directories/files only get moved to one directory. See issue #4 on GitHub.' % (COL.WARNING, COL.ENDC))
+				except FileNotFoundError:
+					print('%sWARNING%s: Multiple model directories/files only get moved to one directory.' \
+						' See issue #4 on GitHub.' % (COL.WARNING, COL.ENDC))
 				except Exception as e:
 					prn_gen_err(e)
 
