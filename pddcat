@@ -71,7 +71,7 @@ def start():
 	args = parser.parse_args()
 	read_conf()
 	if len(sys.argv) == 1:
-		is_paths_set()
+		are_paths_set()
 		move_dirs()
 	else:
 		if args.source or args.dest:
@@ -207,7 +207,7 @@ def if_home(val):
 		return val.replace('~', os.path.expanduser('~'), 1)
 	return val
 
-def is_paths_set():
+def are_paths_set():
 	"""Terminate the program if source or destination is an empty value."""
 	global DWN_DIR, DEST_DIR
 	if DWN_DIR == '' or DEST_DIR == '':
