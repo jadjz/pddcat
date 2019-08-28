@@ -278,15 +278,17 @@ def move_dirs():
 					dir_or_file = 'FILE'
 				else:
 					dir_or_file = 'ELSE??'
+
+				if dir_or_file == 'ELSE??':
+					print('%sWARNING%s: Multiple model directories/files only get moved to one directory.' \
+						' See issue #4 on GitHub.' % (COL.WARNING, COL.ENDC))
+					continue
 				print('Moving %s: %s.' % (dir_or_file, down))
 				try:
 					# turn regex back to normal directory names
 					tag = tag.replace('[\. _-]*', '_')
 					os.makedirs(os.path.join(DEST_DIR, tag), exist_ok=True)
 					shutil.move(full_path, os.path.join(DEST_DIR, tag, down))
-				except FileNotFoundError:
-					print('%sWARNING%s: Multiple model directories/files only get moved to one directory.' \
-						' See issue #4 on GitHub.' % (COL.WARNING, COL.ENDC))
 				except Exception as e:
 					prn_gen_err(e)
 
