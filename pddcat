@@ -12,8 +12,10 @@ import argparse
 # CONST
 # ---
 
+# global path values for src/dest
 DWN_DIR = ''
 DEST_DIR = ''
+
 # default values for initial config
 DEF_DWN_DIR = ''
 DEF_DEST_DIR = ''
@@ -42,6 +44,7 @@ class COL:
 		BOLD = ''
 		ENDC = ''
 
+# configuration text
 CONF_CONT = '# src=path/to/src\n# dest=path/to/dest\n# Tilde (~) could be used instead of absolute path to home.\n# Check --help to set up from command line\nsrc=%s\ndest=%s\n'
 
 # ---
@@ -82,6 +85,9 @@ def start():
 # ---
 
 def create_custom_list():
+	"""Create pddcat_files/ along with pddcat.conf & custom_list.txt in it.
+	Also print first time run message prompting user to set src & dest path.
+	"""
 	if not os.path.isdir(PDDCAT_SUBDIR):
 		os.makedirs(PDDCAT_SUBDIR)
 		print('%s has been created.' % PDDCAT_SUBDIR)
@@ -102,6 +108,11 @@ def create_custom_list():
 		sys.exit()
 
 def add_names(names):
+	"""Append new model names to custom_list.txt.
+	
+	keyword args:
+	names -- list of names passed using -a option
+	"""
 	try:
 		with open(CUSTOM_LIST, 'a') as custom:
 			custom.writelines('\n'.join(names) + '\n')
@@ -116,6 +127,7 @@ def get_opener():
 		urllib.request.install_opener(opener)
 
 def download_list():
+	"""Download curated_list.txt from GitHub to pddcat_files/"""
 	get_opener()
 	try:
 		urllib.request.urlretrieve(LIST_URL, CURATED_LIST)
@@ -124,6 +136,13 @@ def download_list():
 		prn_gen_err(e)
 
 def edit_conf(src, dest):
+	"""Change source/destination values in pddcat.conf.
+	If only one is provided read the other one from the value in memory.
+	
+	keyword args:
+	src -- string value of source path passed using -s option
+	dest -- string value of destination path passed using -d option
+	"""
 	global DWN_DIR, DEST_DIR
 	if src == None:
 		src = DWN_DIR
@@ -138,6 +157,7 @@ def edit_conf(src, dest):
 		prn_gen_err(e)
 
 def read_conf():
+	"""At launch, read path values from pddcat.conf."""
 	global DWN_DIR, DEST_DIR
 	try:
 		temp = list(filter(None, open(CONFIG).read().split('\n')))
@@ -153,8 +173,15 @@ def read_conf():
 		print('%sWARNING%s: pddcat.conf does not exist, re-run the program with no parameters to create it.\n' \
 			'Or check writing permissions.' % (COL.WARNING, COL.ENDC))
 
-# src or dest
 def check_path(line, sord):
+	"""Sterilise path value read from pddcat.conf in read_conf().
+	Removing any leading or trailing whitespace, replace ~ with $HOME if starts with ~.
+	Create directory if it doesn't already exist.
+	
+	keyword args:
+	line -- line of string read from config file that has path information
+	sord -- src or dest, first part of line that gets removed with equals sign
+	"""
 	input_src = line.replace(sord, '', 1).strip()
 	if input_src == '':
 		return ''
@@ -170,11 +197,17 @@ def check_path(line, sord):
 			return ''
 
 def if_home(val):
+	"""Return replacing ~ with $HOME value if starts with ~, return itself if not.
+	
+	keyword args:
+	val -- path string
+	"""
 	if val.startswith('~'):
 		return val.replace('~', os.path.expanduser('~'), 1)
 	return val
 
 def is_paths_set():
+	"""Terminate the program if source or destination is an empty value."""
 	global DWN_DIR, DEST_DIR
 	if DWN_DIR == '' or DEST_DIR == '':
 		print('%sERROR%s: Please set %ssource%s & %sdestination%s directory using\n -s /path/to/dir -d /path/to/dir\n' \
@@ -187,6 +220,10 @@ def is_paths_set():
 # ---
 
 def get_lists():
+	"""Read list of names from curated_list.txt, custom_list.txt and return a modified version with regex.
+	Do not accept lines with a hash (#), replace underscore with a whitespace, dot, underscore or nothing regex,
+	Sort the list by length, then reverse (longer names are on top).
+	"""
 	temp_names_list = []
 	try:
 		temp_names_list += filter(None, open(CURATED_LIST).read().split('\n'))
@@ -221,6 +258,9 @@ def get_lists():
 # ---
 
 def move_dirs():
+	"""Initiate moving process, create directories in destination if there is a match in source directory.
+	Move matching files/directories there.
+	"""
 	tags = list(get_lists())
 	downloads = os.listdir(DWN_DIR)
 	num_of_mv = 0
@@ -257,6 +297,7 @@ def move_dirs():
 # ---
 
 def prn_gen_err(e):
+	"""Print a general, formatted red error message."""
 	print('%sERROR%s: %s' % (COL.FAIL, COL.ENDC, e))
 
 
