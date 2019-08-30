@@ -114,6 +114,7 @@ def add_names(names):
 	keyword args:
 	names -- list of names passed using -a option
 	"""
+	names = [x.lower() for x in names]
 	try:
 		with open(CUSTOM_LIST, 'a') as custom:
 			custom.writelines('\n'.join(names) + '\n')
