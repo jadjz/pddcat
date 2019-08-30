@@ -1,8 +1,6 @@
 # Porn Download Directory Categoriser (pddcat) 🐈
 Organise your all-in-one everything's-a-jumbled-mess downloads directory into different directories based on models' names using regex. Check [functionality example](#functionality-example) below.
 
-I haven't tested it in Windows, but I'm fairly certain it should work without a hitch. Please send feedback to [topic #10](https://github.com/kittenparry/pddcat/issues/10) if you do.
-
 ## HOW TO ❓
 * Set path to your downloads and archive directories by running `-s` & `-d` options.
 * Optionally download [curated_list](db/curated_list.txt) by running `-c`, otherwise it doesn't start with much data to work with.
