@@ -145,15 +145,21 @@ def edit_conf(src, dest):
 	dest -- string value of destination path passed using -d option
 	"""
 	global DWN_DIR, DEST_DIR
+	text = ''
 	if src == None:
 		src = DWN_DIR
+	else:
+		text += 'Source has been set to: %s\n' % src
 	if dest == None:
 		dest = DEST_DIR
+	else:
+		text += 'Destination has been set to: %s' % dest
 
 	try:
 		with open(CONFIG, 'w') as conf:
 			data = CONF_CONT % (src, dest)
 			conf.writelines(data)
+		print(text)
 	except Exception as e:
 		prn_gen_err(e)
 
