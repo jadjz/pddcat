@@ -47,6 +47,7 @@ def sort_list():
 		with open(CURATED_LIST, 'w') as curated:
 			data = comments + combined_names
 			curated.write('\n'.join(data) + '\n')
+			print('%d new name(s) were added to list.' % (len(combined_names) - len(names)))
 	except Exception as e:
 		print(e)
 
