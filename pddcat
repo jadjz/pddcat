@@ -62,8 +62,12 @@ def start():
 	parser.add_argument('-d', '--dest', metavar='path',
 		help='archive dir where directories with model names are created & files moved to.',
 		type=str)
+	parser.add_argument('-w', '--working-dir',
+		help='temporarily source from current working directory. can not be combined with other options.',
+		action='store_true')
 	parser.add_argument('-c', '--curated-list',
-		help='download a list of model names for a quick start.', action='store_true')
+		help='download a list of model names for a quick start.',
+		action='store_true')
 	parser.add_argument('-a', '--add', metavar='name',
 		help='add your own model names to a different file. use underscore (_) in place of spaces and space to separate more than one names. e.g. riley_reid bryci',
 		type=str, nargs='+')
@@ -74,6 +78,15 @@ def start():
 		are_paths_set()
 		move_dirs()
 	else:
+		if args.working_dir:
+			if len(sys.argv) == 2:
+				global DWN_DIR
+				DWN_DIR = os.getcwd()
+				are_paths_set()
+				move_dirs()
+			else:
+				print('%sERROR%s: Can not be combined with other options. Run -w by itself.' % (COL.FAIL, COL.ENDC))
+				sys.exit(1)
 		if args.source or args.dest:
 			edit_conf(args.source, args.dest)
 		if args.curated_list:

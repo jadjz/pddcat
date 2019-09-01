@@ -13,7 +13,7 @@ $ ./pddcat
 
 ### USAGE
 ```
-$ ./pddcat [-h] [-s path] [-d path] [-c] [-a name [name ...]]
+$ ./pddcat [-h] [-s path] [-d path] [-w] [-c] [-a name [name ...]]
 
 Organise your all-in-one porn download directory into separate directories by model names.
 
@@ -23,6 +23,8 @@ optional arguments:
                         downloads dir where files are matched & moved from.
   -d path, --dest path  archive dir where directories with model names are
                         created & files moved to.
+  -w, --working-dir     temporarily source from current working directory. can
+                        not be combined with other options.
   -c, --curated-list    download a list of model names for a quick start.
   -a name [name ...], --add name [name ...]
                         add your own model names to a different file. use
