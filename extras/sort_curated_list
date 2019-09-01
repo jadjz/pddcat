@@ -1,0 +1,41 @@
+#!/usr/bin/env python3
+
+# sorting script for adding new names to curated_list.txt
+# has nothing to do with pddcat's functionality
+
+import os
+
+EXTRAS_DIR = os.path.dirname(os.path.realpath(__file__))
+CURATED_LIST = os.path.abspath(os.path.join(EXTRAS_DIR, '..', 'db', 'curated_list.txt'))
+
+def sort_list():
+	temp_comments = []
+	temp_names = []
+	try:
+		temp = list(filter(None, open(CURATED_LIST).read().split('\n')))
+		for line in temp:
+			if line.startswith('#'):
+				temp_comments.append(line)
+			else:
+				temp_names.append(line)
+	except Exception as e:
+		print(e)
+
+	# remove duplicates & sort alphabetically
+	temp_names = list(dict.fromkeys(temp_names))
+	temp_names.sort()
+
+	# increment revision number
+	temp_ver_line = temp_comments[-1].split(' ')
+	temp_ver_line[-1] = str(int(temp_ver_line[-1]) + 1)
+	temp_comments[-1] = ' '.join(temp_ver_line)
+
+	try:
+		with open(CURATED_LIST, 'w') as curated:
+			data = temp_comments + temp_names
+			curated.write('\n'.join(data) + '\n')
+	except Exception as e:
+		print(e)
+
+if __name__ == '__main__':
+	sort_list()
