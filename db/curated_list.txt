@@ -2,7 +2,7 @@
 # Edit at your own risk, for it will be overwritten if -c is used again.
 # Instead use custom_list.txt to add your own model names.
 # Comment or send a pull request to add to curated_list.txt. See #9 on GitHub.
-# For comparison: revision 2
+# For comparison: revision 3
 abbie_maley
 abby_rains
 abella_danger
@@ -146,6 +146,7 @@ haley_reed
 hanna_hays
 hannah_hays
 hayden_ryan
+hazel_moore
 heidi_romanova
 helen_g
 hollie_sparrow
@@ -247,6 +248,7 @@ madison_ivy
 madison_scott
 malena_fendi
 malena_morgan
+mandy_muse
 marina_woods
 marsha_may
 mary_jane_mayhem

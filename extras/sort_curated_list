@@ -7,32 +7,45 @@ import os
 
 EXTRAS_DIR = os.path.dirname(os.path.realpath(__file__))
 CURATED_LIST = os.path.abspath(os.path.join(EXTRAS_DIR, '..', 'db', 'curated_list.txt'))
+CUSTOM_LIST = os.path.abspath(os.path.join(EXTRAS_DIR, '..', 'pddcat_files', 'custom_list.txt'))
 
 def sort_list():
-	temp_comments = []
-	temp_names = []
+	comments = []
+	names = []
+	add_names = [] # additional names from custom_list.txt
 	try:
 		temp = list(filter(None, open(CURATED_LIST).read().split('\n')))
 		for line in temp:
 			if line.startswith('#'):
-				temp_comments.append(line)
+				comments.append(line)
 			else:
-				temp_names.append(line)
+				names.append(line)
+
+		temp = list(filter(None, open(CUSTOM_LIST).read().split('\n')))
+		for line in temp:
+			if line.startswith('#'):
+				pass
+			else:
+				add_names.append(line)
 	except Exception as e:
 		print(e)
 
-	# remove duplicates & sort alphabetically
-	temp_names = list(dict.fromkeys(temp_names))
-	temp_names.sort()
+	combined_names = names + add_names
 
-	# increment revision number
-	temp_ver_line = temp_comments[-1].split(' ')
-	temp_ver_line[-1] = str(int(temp_ver_line[-1]) + 1)
-	temp_comments[-1] = ' '.join(temp_ver_line)
+	# remove duplicates & sort alphabetically
+	combined_names = list(dict.fromkeys(combined_names))
+	combined_names.sort()
+
+	# a crude way to check if new names are added
+	if len(combined_names) != len(names):
+		# increment revision number
+		ver_line = comments[-1].split(' ')
+		ver_line[-1] = str(int(ver_line[-1]) + 1)
+		comments[-1] = ' '.join(ver_line)
 
 	try:
 		with open(CURATED_LIST, 'w') as curated:
-			data = temp_comments + temp_names
+			data = comments + combined_names
 			curated.write('\n'.join(data) + '\n')
 	except Exception as e:
 		print(e)
