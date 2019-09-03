@@ -2,7 +2,7 @@
 # Edit at your own risk, for it will be overwritten if -c is used again.
 # Instead use custom_list.txt to add your own model names.
 # Comment or send a pull request to add to curated_list.txt. See #9 on GitHub.
-# For comparison: revision 3
+# For comparison: revision 4
 abbie_maley
 abby_rains
 abella_danger
@@ -33,6 +33,7 @@ alyssa_cole
 amilia_onyx
 amouranth
 ana_rose
+anastasia_brokelyn
 anastasia_knight
 ancilla_tilia
 anetta_keys
@@ -113,6 +114,7 @@ daniella_margot
 danni_dawn
 danni_rivers
 darcie_dolce
+dylann_vox
 eden_sin
 elise_laurenne
 elise_tails
@@ -155,6 +157,7 @@ indigowhite
 ivy_lebelle
 iwia
 izzy_lush
+jada_kai
 jada_stevens
 jade_kush
 jade_nile
