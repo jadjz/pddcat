@@ -2,7 +2,7 @@
 # Edit at your own risk, for it will be overwritten if -c is used again.
 # Instead use custom_list.txt to add your own model names.
 # Comment or send a pull request to add to curated_list.txt. See #9 on GitHub.
-# For comparison: revision 4
+# For comparison: revision 5
 abbie_maley
 abby_rains
 abella_danger
@@ -85,6 +85,7 @@ brittany_marie
 brooke_benz
 brooke_sinclaire
 brooklyn_daniels
+brooklyn_gray
 bryci
 bunny_colby
 cadence_carter
