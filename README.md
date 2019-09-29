@@ -38,7 +38,7 @@ You can comment new names to [topic #9](https://github.com/kittenparry/pddcat/is
 
 #### Functionality Example
  * Source is `~/dwn` and destination is `~/arch`
- * `~/dwn/ariana.marie.awards.mp4` --> `~/arch/`**`ariana_marie`**`/ariana.marie.awards.mp4`
+ * `~/dwn/ariana.marie.awards.mp4` --> <pre>~/arch/<b>ariana_marie</b>/ariana.marie.awards.mp4</pre>
  * `~/dwn/bryci_youtube_playlist/` --> `~/arch/`**`bryci`**`/bryci_youtube_playlist/`
  * Meaning into their separate directories based on name.
  * `~/dwn/18.02.25.Lana.Rhoades.And.Jade.Nile.XXX.1080p/` --> `~/arch/`**`lana_rhoades`**`/18.02.25.Lana.Rhoades.And.Jade.Nile.XXX.1080p/`
