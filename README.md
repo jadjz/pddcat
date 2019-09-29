@@ -38,10 +38,10 @@ You can comment new names to [topic #9](https://github.com/kittenparry/pddcat/is
 
 #### Functionality Example
  * Source is `~/dwn` and destination is `~/arch`
- * `~/dwn/ariana.marie.awards.mp4` --> `~/arch/ariana_marie/ariana.marie.awards.mp4`
- * `~/dwn/bryci_youtube_playlist/` --> `~/arch/bryci/bryci_youtube_playlist/`
+ * `~/dwn/ariana.marie.awards.mp4` --> `~/arch/`**`ariana_marie`**`/ariana.marie.awards.mp4`
+ * `~/dwn/bryci_youtube_playlist/` --> `~/arch/`**`bryci`**`/bryci_youtube_playlist/`
  * Meaning into their separate directories based on name.
- * `~/dwn/18.02.25.Lana.Rhoades.And.Jade.Nile.XXX.1080p/` --> `~/arch/lana_rhoades/18.02.25.Lana.Rhoades.And.Jade.Nile.XXX.1080p/`
+ * `~/dwn/18.02.25.Lana.Rhoades.And.Jade.Nile.XXX.1080p/` --> `~/arch/`**`lana_rhoades`**`/18.02.25.Lana.Rhoades.And.Jade.Nile.XXX.1080p/`
    * `lana_rhoades` is longer than `jade_nile` in character length and gets checked, matched & moved to first. See [issue #4](https://github.com/kittenparry/pddcat/issues/4) for multiple models moving.
 
 ### NOTES
