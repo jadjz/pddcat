@@ -28,8 +28,8 @@ optional arguments:
   -c, --curated-list    download a list of model names for a quick start.
   -a name [name ...], --add name [name ...]
                         add your own model names to a different file. use
-                        underscore (_) in place of spaces and space to
-                        separate more than one names. e.g. riley_reid bryci
+                        underscore (_) in place of spaces and use space to
+                        separate multiple names. e.g. riley_reid bryci
 
 ```
 

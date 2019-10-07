@@ -69,7 +69,7 @@ def start():
 		help='download a list of model names for a quick start.',
 		action='store_true')
 	parser.add_argument('-a', '--add', metavar='name',
-		help='add your own model names to a different file. use underscore (_) in place of spaces and space to separate more than one names. e.g. riley_reid bryci',
+		help='add your own model names to a different file. use underscore (_) in place of spaces and use space to separate multiple names. e.g. riley_reid bryci',
 		type=str, nargs='+')
 
 	args = parser.parse_args()
