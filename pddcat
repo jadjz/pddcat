@@ -142,13 +142,42 @@ def get_opener():
 		urllib.request.install_opener(opener)
 
 def download_list():
-	"""Download curated_list.txt from GitHub to pddcat_files/"""
+	"""Download curated_list.txt from GitHub to pddcat_files/
+	Print revision number & number of names change on screen.
+	"""
+	if os.path.isfile(CURATED_LIST):
+		last_ver, last_num = get_list_ver_num()
 	get_opener()
 	try:
 		urllib.request.urlretrieve(LIST_URL, CURATED_LIST)
+		cur_ver, cur_num = get_list_ver_num()
+		last_ver = last_ver if 'last_ver' in locals() else 0
+		last_num = last_num if 'last_num' in locals() else 0
 		print('Curated list has been downloaded to %s' % CURATED_LIST)
+		print('Revision %s -> %s' % (last_ver, cur_ver))
+		if last_num != -1:
+			print('Number of names %s -> %s (+%s)' % (last_num, cur_num, (int(cur_num) - int(last_num))))
 	except Exception as e:
 		prn_gen_err(e)
+
+def get_list_ver_num():
+	"""Return revision number & number of names in curated_list.txt"""
+	comments = []
+	try:
+		temp = list(filter(None, open(CURATED_LIST).read().split('\n')))
+		for line in temp:
+			if line.startswith('#'):
+				comments.append(line)
+			else:
+				break
+	except Exception as e:
+		print(e)
+	ver = comments[-1].split(' ')[-1]
+	# return -1 if number of names didn't exist in that revision
+	if int(ver) < 10:
+		return ver, -1
+	else:
+		return comments[-1].split(' ')[-1], comments[-2].split(' ')[-1]
 
 def edit_conf(src, dest):
 	"""Change source/destination values in pddcat.conf.

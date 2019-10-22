@@ -43,6 +43,10 @@ def sort_list():
 		ver_line[-1] = str(int(ver_line[-1]) + 1)
 		comments[-1] = ' '.join(ver_line)
 
+		num_line = comments[-2].split(' ')
+		num_line[-1] = str(int(num_line[-1]) + (len(combined_names) - len(names)))
+		comments[-2] = ' '.join(num_line)
+
 	try:
 		with open(CURATED_LIST, 'w') as curated:
 			data = comments + combined_names
