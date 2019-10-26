@@ -177,7 +177,7 @@ def get_list_ver_num():
 	if int(ver) < 10:
 		return ver, -1
 	else:
-		return comments[-1].split(' ')[-1], comments[-2].split(' ')[-1]
+		return ver, comments[-2].split(' ')[-1]
 
 def edit_conf(src, dest):
 	"""Change source/destination values in pddcat.conf.
