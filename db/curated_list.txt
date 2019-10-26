@@ -2,8 +2,8 @@
 # Edit at your own risk, for it will be overwritten if -c is used again.
 # Instead use custom_list.txt to add your own model names.
 # Comment or send a pull request to add to curated_list.txt. See #9 on GitHub.
-# Number of names: 424
-# For comparison: revision 10
+# Number of names: 418
+# For comparison: revision 11
 abbie_maley
 abby_rains
 abella_danger
@@ -91,7 +91,6 @@ brenna_sparks
 brett_rossi
 briana_blair
 bridgette_b
-britanny_marie
 brittany_marie
 brooke_benz
 brooke_sinclaire
@@ -107,7 +106,6 @@ canence_lux
 caprice
 carolina_sweets
 casey_calvert
-casey_nohrman
 casey_norhman
 cece_september
 cecilia_lion
@@ -167,7 +165,6 @@ goldie_rush
 gracie_glam
 hailey_leigh
 haley_reed
-hanna_hays
 hannah_hays
 harmony_wonder
 hayden_ryan
@@ -239,7 +236,6 @@ kylie_page
 kylie_quinn
 la_sirena
 lacey_lenix
-lacey_lennon
 lacy_lennon
 lady_dee
 lana_carter
@@ -321,7 +317,6 @@ monique_alexander
 nadya_nabakova
 nancey
 nancy_a
-nancy_ace
 naomi_benett
 naomi_swann
 naomi_woods
@@ -331,7 +326,6 @@ natasha_more
 natasha_starr
 nicole_aniston
 nikki_benz
-nikki_rhoades
 nikki_rhodes
 nina_skye
 noelle_easton
