@@ -3,11 +3,10 @@ Organise your all-in-one everything's-a-jumbled-mess downloads directory into di
 
 ## HOW TO ❓
 * Set path to your downloads and archive directories by running `-s` & `-d` options.
-* Optionally download [curated_list](db/curated_list.txt) by running `-c`, otherwise it doesn't start with much data to work with.
+* Download [curated_list](db/curated_list.txt) by running `-c`, otherwise it doesn't start with much data to work with.
 * Then execute it without any parameters and watch your downloads directory untangle!
 ```
-$ ./pddcat -s /path/to/src -d /path/to/dest
-$ ./pddcat -c
+$ ./pddcat -s /path/to/src -d /path/to/dest -c
 $ ./pddcat
 ```
 
