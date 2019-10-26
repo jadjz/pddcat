@@ -23,12 +23,14 @@ DEF_DEST_DIR = ''
 # curated list direct url
 LIST_URL = 'https://raw.githubusercontent.com/kittenparry/pddcat/master/db/curated_list.txt'
 
-# absolute path of where pddcat is
-PDDCAT_DIR = os.path.dirname(os.path.realpath(__file__))
-PDDCAT_SUBDIR = os.path.join(PDDCAT_DIR, 'pddcat_files')
-CURATED_LIST = os.path.join(PDDCAT_SUBDIR, 'curated_list.txt')
-CUSTOM_LIST = os.path.join(PDDCAT_SUBDIR, 'custom_list.txt')
-CONFIG = os.path.join(PDDCAT_SUBDIR, 'pddcat.conf')
+# config directory
+if platform.system() == 'Windows':
+	PDDCAT_DIR = os.path.expanduser('~\\Documents\\pddcat')
+else: # Mac & Linux
+	PDDCAT_DIR = os.path.expanduser('~/.config/pddcat')
+CURATED_LIST = os.path.join(PDDCAT_DIR, 'curated_list.txt')
+CUSTOM_LIST = os.path.join(PDDCAT_DIR, 'custom_list.txt')
+CONFIG = os.path.join(PDDCAT_DIR, 'pddcat.conf')
 
 # colourful messages
 class COL:
@@ -102,9 +104,9 @@ def create_custom_list():
 	"""Create pddcat_files/ along with pddcat.conf & custom_list.txt in it.
 	Also print first time run message prompting user to set src & dest path.
 	"""
-	if not os.path.isdir(PDDCAT_SUBDIR):
-		os.makedirs(PDDCAT_SUBDIR)
-		print('%s has been created.' % PDDCAT_SUBDIR)
+	if not os.path.isdir(PDDCAT_DIR):
+		os.makedirs(PDDCAT_DIR)
+		print('%s has been created.' % PDDCAT_DIR)
 	if not os.path.isfile(CONFIG):
 		with open(CONFIG, 'w') as conf:
 			conf.writelines(CONF_CONT % (DEF_DWN_DIR, DEF_DEST_DIR))
