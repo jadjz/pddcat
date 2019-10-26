@@ -26,7 +26,7 @@ LIST_URL = 'https://raw.githubusercontent.com/kittenparry/pddcat/master/db/curat
 # config directory
 if platform.system() == 'Windows':
 	PDDCAT_DIR = os.path.expanduser('~\\Documents\\pddcat')
-else: # Mac & Linux
+else: # Darwin & Linux
 	PDDCAT_DIR = os.path.expanduser('~/.config/pddcat')
 CURATED_LIST = os.path.join(PDDCAT_DIR, 'curated_list.txt')
 CUSTOM_LIST = os.path.join(PDDCAT_DIR, 'custom_list.txt')
