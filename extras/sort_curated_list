@@ -4,10 +4,16 @@
 # has nothing to do with pddcat's functionality
 
 import os
+import platform
 
 EXTRAS_DIR = os.path.dirname(os.path.realpath(__file__))
 CURATED_LIST = os.path.abspath(os.path.join(EXTRAS_DIR, '..', 'db', 'curated_list.txt'))
-CUSTOM_LIST = os.path.abspath(os.path.join(EXTRAS_DIR, '..', 'pddcat_files', 'custom_list.txt'))
+# config directory
+if platform.system() == 'Windows':
+	PDDCAT_DIR = os.path.expanduser('~\\Documents\\pddcat')
+else: # Darwin & Linux
+	PDDCAT_DIR = os.path.expanduser('~/.config/pddcat')
+CUSTOM_LIST = os.path.join(PDDCAT_DIR, 'custom_list.txt')
 
 def sort_list():
 	comments = []
