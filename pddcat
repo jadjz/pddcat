@@ -70,6 +70,9 @@ def start():
 	parser.add_argument('-w', '--working-dir',
 		help='temporarily source from current working directory. can not be combined with other options',
 		action='store_true')
+	parser.add_argument('-t', '--temp-dest', metavar='path',
+		help='temporarily move files to a different directory than currently set dest',
+		type=str)
 	parser.add_argument('-c', '--curated-list',
 		help='download a list of model names for a quick start',
 		action='store_true')
@@ -80,26 +83,30 @@ def start():
 	args = parser.parse_args()
 	read_conf()
 	if len(sys.argv) == 1:
-		are_paths_set()
-		move_dirs()
+		check_and_move()
 	else:
 		if args.info:
 			get_info()
+		if args.temp_dest:
+			global DEST_DIR
+			DEST_DIR = os.path.abspath(args.temp_dest)
 		if args.working_dir:
-			if len(sys.argv) == 2:
-				global DWN_DIR
-				DWN_DIR = os.getcwd()
-				are_paths_set()
-				move_dirs()
-			else:
-				print('%sERROR%s: Can not be combined with other options. Run -w by itself.' % (COL.FAIL, COL.ENDC))
-				sys.exit(1)
+			global DWN_DIR
+			DWN_DIR = os.getcwd()
 		if args.source or args.dest:
 			edit_conf(args.source, args.dest)
 		if args.curated_list:
 			download_list()
 		if args.add:
 			add_names(args.add)
+
+		if args.temp_dest or args.working_dir:
+			check_and_move()
+
+def check_and_move():
+	"""2 function calls into one for ease of typing in start()"""
+	are_paths_set()
+	move_dirs()
 
 # ---
 # ARG FUNCS
