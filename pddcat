@@ -68,9 +68,12 @@ def start():
 		help='archive dir where directories with model names are created & files moved to',
 		type=str)
 	parser.add_argument('-w', '--working-dir',
-		help='temporarily source from current working directory. can not be combined with other options',
+		help='temporarily source from current working directory. can not be combined with -ts',
 		action='store_true')
-	parser.add_argument('-t', '--temp-dest', metavar='path',
+	parser.add_argument('-ts', '--temp-src', metavar='path',
+		help='temporarily move files from a different directory than currently set src. can not be combined with -w',
+		type=str)
+	parser.add_argument('-td', '--temp-dest', metavar='path',
 		help='temporarily move files to a different directory than currently set dest',
 		type=str)
 	parser.add_argument('-c', '--curated-list',
@@ -85,14 +88,20 @@ def start():
 	if len(sys.argv) == 1:
 		check_and_move()
 	else:
+		if args.working_dir and args.temp_src:
+			print('%sERROR%s: -w & -ts can not be combined with each other. Terminating...' % (COL.FAIL, COL.ENDC))
+			sys.exit(1)
 		if args.info:
 			get_info()
 		if args.temp_dest:
 			global DEST_DIR
 			DEST_DIR = os.path.abspath(args.temp_dest)
-		if args.working_dir:
+		if args.temp_src or args.working_dir:
 			global DWN_DIR
-			DWN_DIR = os.getcwd()
+			if args.temp_src:
+				DWN_DIR = os.path.abspath(args.temp_src)
+			elif args.working_dir:
+				DWN_DIR = os.getcwd()
 		if args.source or args.dest:
 			edit_conf(args.source, args.dest)
 		if args.curated_list:
@@ -100,7 +109,7 @@ def start():
 		if args.add:
 			add_names(args.add)
 
-		if args.temp_dest or args.working_dir:
+		if args.temp_dest or args.working_dir or args.temp_src:
 			check_and_move()
 
 def check_and_move():

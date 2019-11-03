@@ -12,7 +12,7 @@ $ ./pddcat
 
 ### USAGE
 ```
-$ ./pddcat [-h] [-i] [-s path] [-d path] [-w] [-t path] [-c] [-a name [name ...]]
+$ ./pddcat [-h] [-i] [-s path] [-d path] [-w] [-ts path] [-td path] [-c] [-a name [name ...]]
 
 Organise your all-in-one porn download directory into separate directories by model names.
 
@@ -24,8 +24,11 @@ optional arguments:
   -d path, --dest path  archive dir where directories with model names are
                         created & files moved to
   -w, --working-dir     temporarily source from current working directory. can
-                        not be combined with other options
-  -t path, --temp-dest path
+                        not be combined with -ts
+  -ts path, --temp-src path
+                        temporarily move files from a different directory than
+                        currently set src. can not be combined with -w
+  -td path, --temp-dest path
                         temporarily move files to a different directory than
                         currently set dest
   -c, --curated-list    download a list of model names for a quick start
