@@ -58,17 +58,20 @@ def start():
 	create_custom_list()
 
 	parser = argparse.ArgumentParser(description='Organise your all-in-one porn download directory into separate directories by model names.')
+	parser.add_argument('-i', '--info',
+	help='print currently set src/dest directories and exit',
+	action='store_true')
 	parser.add_argument('-s', '--source', metavar='path',
-		help='downloads dir where files are matched & moved from.',
+		help='downloads dir where files are matched & moved from',
 		type=str)
 	parser.add_argument('-d', '--dest', metavar='path',
-		help='archive dir where directories with model names are created & files moved to.',
+		help='archive dir where directories with model names are created & files moved to',
 		type=str)
 	parser.add_argument('-w', '--working-dir',
-		help='temporarily source from current working directory. can not be combined with other options.',
+		help='temporarily source from current working directory. can not be combined with other options',
 		action='store_true')
 	parser.add_argument('-c', '--curated-list',
-		help='download a list of model names for a quick start.',
+		help='download a list of model names for a quick start',
 		action='store_true')
 	parser.add_argument('-a', '--add', metavar='name',
 		help='add your own model names to a different file. use underscore (_) in place of spaces and use space to separate multiple names. e.g. riley_reid bryci',
@@ -80,6 +83,8 @@ def start():
 		are_paths_set()
 		move_dirs()
 	else:
+		if args.info:
+			get_info()
 		if args.working_dir:
 			if len(sys.argv) == 2:
 				global DWN_DIR
@@ -266,6 +271,13 @@ def are_paths_set():
 			'Or manually in %s.\nCheck help with -h. Terminating...' % 
 			(COL.FAIL, COL.ENDC, COL.BOLD, COL.ENDC, COL.BOLD, COL.ENDC, CONFIG))
 		sys.exit(1)
+
+def get_info():
+	"""Print currently set source and destination directories and exit."""
+	global DWN_DIR, DEST_DIR
+	print('%sSource:%s\t%s' % (COL.BOLD, COL.ENDC, DWN_DIR))
+	print('%sDest:%s\t%s' % (COL.BOLD, COL.ENDC, DEST_DIR))
+	sys.exit()
 
 # ---
 # GET LIST
