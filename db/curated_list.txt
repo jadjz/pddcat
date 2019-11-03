@@ -2,12 +2,13 @@
 # Edit at your own risk, for it will be overwritten if -c is used again.
 # Instead use custom_list.txt to add your own model names.
 # Comment or send a pull request to add to curated_list.txt. See #9 on GitHub.
-# Number of names: 418
-# For comparison: revision 11
+# Number of names: 453
+# For comparison: revision 12
 abbie_maley
 abby_rains
 abella_danger
 abigail_mac
+ablackawhite
 adria_rae
 ai_uehara
 aidra_fox
@@ -28,6 +29,7 @@ alexis_adams
 alexis_crystal
 alice_blare
 alice_march
+alie_smith
 alina_west
 alix_lynx
 alli_rae
@@ -48,6 +50,7 @@ angel_smalls
 angela_white
 anissa_kate
 anna_de_ville
+annbarby
 annika_eve
 anny_aurora
 anri_okita
@@ -79,13 +82,16 @@ austin_white
 autumn_falls
 ava_dalush
 avery_stone
+baby_girl666
 baby_nicols
+babyjinx
 bella_claire
 bella_jane
 belle_delphine
 billie_star
 blair_williams
 blazefyre
+bleu
 bree_daniels
 brenna_sparks
 brett_rossi
@@ -145,15 +151,20 @@ emily_grey
 emily_right
 emily_willis
 emma_glover
+emmbielle
 erica_fontes
 eugenia_dior
+eva_elfie
 eva_lovia
 evilyn_fierce
+fay
 forestnymph
 freya_dee
+fuckinhotcouple
 gabbie_carter
 gabriela_lopez
 gemma
+genthehobbit
 gia_paige
 gianna_dior
 gina_gerson
@@ -163,6 +174,7 @@ gisha_forza
 goldengoddessxxx
 goldie_rush
 gracie_glam
+gwengladiator
 hailey_leigh
 haley_reed
 hannah_hays
@@ -172,12 +184,15 @@ hazel_moore
 heidi_romanova
 helen_g
 hollie_sparrow
+holly_gibbons
 hope_harper
+hylia
 indigowhite
 ivi_rein
 ivy_lebelle
 iwia
 izzy_lush
+jackplusjill
 jada_kai
 jada_stevens
 jade_baker
@@ -192,6 +207,7 @@ jay_taylor
 jaye_summers
 jeff_milton
 jenna_ross
+jennifer_ann
 jennifer_jacobs
 jenny_james
 jess_davies
@@ -204,6 +220,7 @@ jessica_robbin
 jessika_jinx
 jia_lissa
 jo_scribbles
+jodie_gasson
 joey_fisher
 jojo_kiss
 kagney_karter
@@ -246,25 +263,31 @@ lanna_carter
 lara_brookes
 lauren_louise
 lauren_phillips
+laurenbrite
 leanna_decker
 lena_paul
 lena_reif
 lenna_lux
+leslietopulos
 lexi_belle
 lexi_lore
 lexi_luna
 li_moon
+liara_roux
 lilith_lust
 lilliane
+lilneko
 lilu_moon
 lily_moon
 lindsay_marie
 lindsey_cruz
+littlekitsune
 liv_wild
 liya_silver
 liza_del_sierra
 lola_fae
 lolly_small
+loloxxgocoffe_foryou
 lucia_love
 lucy_collett
 lucy_li
@@ -289,6 +312,7 @@ maya_kendrick
 megan_sage
 megan_salinas
 megan_winters
+melanie_and_molly
 melissa_benz
 melissa_debling
 melissa_e
@@ -302,6 +326,7 @@ mia_khalifa
 mia_li
 mia_malkova
 mia_melano
+mia_valentine
 michele_james
 michelle_can
 mila_azul
@@ -320,16 +345,20 @@ nancy_a
 naomi_benett
 naomi_swann
 naomi_woods
+natalia_grey
+natalia_rain
 natalie_lust
 natasha_belle
 natasha_more
 natasha_starr
 nicole_aniston
+niece_waidhofer
 nikki_benz
 nikki_rhodes
 nina_skye
 noelle_easton
 octaviamay
+okay_google
 olive_glass
 olivia_sin
 omgcosplay
@@ -379,14 +408,18 @@ siri
 skye_blue
 skyla_novea
 skylar_vox
+snowyrose
 sofie_reyez
 sophia_blake
 sophia_leone
+stefania_ferrario
 stella_cox
 stevie_grey
 stoya
 sunny_leone
+sunshinekitty96
 susy_gala
+tacwolf
 tahlia_paris
 tanner_mayes
 tasha_reign
@@ -403,6 +436,8 @@ usatame
 valentina_nappi
 valerie_vixen
 vera_bliss
+verababy
+verabambi
 veronica_vice
 veruca_james
 vicki_chase
