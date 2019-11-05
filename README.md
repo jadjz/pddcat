@@ -22,10 +22,10 @@ optional arguments:
                         be combined with -w, -ts, -td to display paths with
                         modifiers. terminates the program nonetheless
 
-config:
+config options:
   -s path, --source path
-                        downloads dir where files are matched & moved from
-  -d path, --dest path  archive dir where directories with model names are
+                        set downloads dir where files are matched & moved from
+  -d path, --dest path  set archive dir where directories with model names are
                         created & files moved to
 
 temporary path:

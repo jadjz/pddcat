@@ -62,12 +62,12 @@ def start():
 	help='print currently set src/dest directories and exit. can be combined with -w, -ts, -td to display paths with modifiers. terminates the program nonetheless',
 	action='store_true')
 
-	group_config = parser.add_argument_group('config')
+	group_config = parser.add_argument_group('config options')
 	group_config.add_argument('-s', '--source', metavar='path',
-		help='downloads dir where files are matched & moved from',
+		help='set downloads dir where files are matched & moved from',
 		type=str)
 	group_config.add_argument('-d', '--dest', metavar='path',
-		help='archive dir where directories with model names are created & files moved to',
+		help='set archive dir where directories with model names are created & files moved to',
 		type=str)
 
 	group_temp = parser.add_argument_group('temporary path')
