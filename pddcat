@@ -59,7 +59,7 @@ def start():
 
 	parser = argparse.ArgumentParser(description='Organise your all-in-one porn download directory into separate directories by model names.')
 	parser.add_argument('-i', '--info',
-	help='print currently set src/dest directories and exit',
+	help='print currently set src/dest directories and exit. can be combined with -w, -ts, -td to display paths with modifiers. terminates the program nonetheless',
 	action='store_true')
 	parser.add_argument('-s', '--source', metavar='path',
 		help='downloads dir where files are matched & moved from',
@@ -91,8 +91,6 @@ def start():
 		if args.working_dir and args.temp_src:
 			print('%sERROR%s: -w & -ts can not be combined with each other. Terminating...' % (COL.FAIL, COL.ENDC))
 			sys.exit(1)
-		if args.info:
-			get_info()
 		if args.temp_dest:
 			global DEST_DIR
 			DEST_DIR = os.path.abspath(args.temp_dest)
@@ -102,6 +100,8 @@ def start():
 				DWN_DIR = os.path.abspath(args.temp_src)
 			elif args.working_dir:
 				DWN_DIR = os.getcwd()
+		if args.info:
+			get_info()
 		if args.source or args.dest:
 			edit_conf(args.source, args.dest)
 		if args.curated_list:

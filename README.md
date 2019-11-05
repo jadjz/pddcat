@@ -18,7 +18,9 @@ Organise your all-in-one porn download directory into separate directories by mo
 
 optional arguments:
   -h, --help            show this help message and exit
-  -i, --info            print currently set src/dest directories and exit
+  -i, --info            print currently set src/dest directories and exit. can
+                        be combined with -w, -ts, -td to display paths with
+                        modifiers. terminates the program nonetheless
   -s path, --source path
                         downloads dir where files are matched & moved from
   -d path, --dest path  archive dir where directories with model names are
