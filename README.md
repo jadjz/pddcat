@@ -21,10 +21,14 @@ optional arguments:
   -i, --info            print currently set src/dest directories and exit. can
                         be combined with -w, -ts, -td to display paths with
                         modifiers. terminates the program nonetheless
+
+config:
   -s path, --source path
                         downloads dir where files are matched & moved from
   -d path, --dest path  archive dir where directories with model names are
                         created & files moved to
+
+temporary path:
   -w, --working-dir     temporarily source from current working directory. can
                         not be combined with -ts
   -ts path, --temp-src path
@@ -33,6 +37,8 @@ optional arguments:
   -td path, --temp-dest path
                         temporarily move files to a different directory than
                         currently set dest
+
+name lists:
   -c, --curated-list    download a list of model names for a quick start
   -a name [name ...], --add name [name ...]
                         add your own model names to a different file. use

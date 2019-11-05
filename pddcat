@@ -61,25 +61,31 @@ def start():
 	parser.add_argument('-i', '--info',
 	help='print currently set src/dest directories and exit. can be combined with -w, -ts, -td to display paths with modifiers. terminates the program nonetheless',
 	action='store_true')
-	parser.add_argument('-s', '--source', metavar='path',
+
+	group_config = parser.add_argument_group('config')
+	group_config.add_argument('-s', '--source', metavar='path',
 		help='downloads dir where files are matched & moved from',
 		type=str)
-	parser.add_argument('-d', '--dest', metavar='path',
+	group_config.add_argument('-d', '--dest', metavar='path',
 		help='archive dir where directories with model names are created & files moved to',
 		type=str)
-	parser.add_argument('-w', '--working-dir',
+
+	group_temp = parser.add_argument_group('temporary path')
+	group_temp.add_argument('-w', '--working-dir',
 		help='temporarily source from current working directory. can not be combined with -ts',
 		action='store_true')
-	parser.add_argument('-ts', '--temp-src', metavar='path',
+	group_temp.add_argument('-ts', '--temp-src', metavar='path',
 		help='temporarily move files from a different directory than currently set src. can not be combined with -w',
 		type=str)
-	parser.add_argument('-td', '--temp-dest', metavar='path',
+	group_temp.add_argument('-td', '--temp-dest', metavar='path',
 		help='temporarily move files to a different directory than currently set dest',
 		type=str)
-	parser.add_argument('-c', '--curated-list',
+
+	group_list = parser.add_argument_group('name lists')
+	group_list.add_argument('-c', '--curated-list',
 		help='download a list of model names for a quick start',
 		action='store_true')
-	parser.add_argument('-a', '--add', metavar='name',
+	group_list.add_argument('-a', '--add', metavar='name',
 		help='add your own model names to a different file. use underscore (_) in place of spaces and use space to separate multiple names. e.g. riley_reid bryci',
 		type=str, nargs='+')
 
