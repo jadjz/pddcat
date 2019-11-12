@@ -2,8 +2,8 @@
 # Edit at your own risk, for it will be overwritten if -c is used again.
 # Instead use custom_list.txt to add your own model names.
 # Comment or send a pull request to add to curated_list.txt. See #9 on GitHub.
-# Number of names: 458
-# For comparison: revision 14
+# Number of names: 464
+# For comparison: revision 15
 abbie_maley
 abby_rains
 abella_danger
@@ -54,6 +54,7 @@ annbarby
 annika_eve
 anny_aurora
 anri_okita
+anya_olsen
 aphrodesia
 april_oneil
 april_reid
@@ -119,6 +120,7 @@ cecilia_lion
 celestia_vega
 chanel_preston
 charley_s
+chase_ryder
 chelsea_vegas
 cherry_kiss
 chloe_foster
@@ -220,12 +222,14 @@ jessica_nigri
 jessica_robbin
 jessika_jinx
 jia_lissa
+jillian_janson
 jo_scribbles
 jodie_gasson
 joey_fisher
 jojo_kiss
 juicy_mel
 juliya_c
+jynx_maze
 kagney_karter
 kali_roses
 karlie_montana
@@ -352,6 +356,7 @@ naomi_swann
 naomi_woods
 natalia_grey
 natalia_rain
+natalia_star
 natalie_lust
 natasha_belle
 natasha_more
@@ -414,6 +419,7 @@ skye_blue
 skyla_novea
 skylar_vox
 snowyrose
+sofi_ryan
 sofie_reyez
 sophia_blake
 sophia_leone
