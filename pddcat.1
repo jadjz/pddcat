@@ -1,0 +1,94 @@
+.
+.TH pddcat 1 "2019-11-19" "pddcat(1)" "pddcat man page"
+
+.SH NAME
+pddcat \- porn download directory categoriser
+
+.SH SYNOPSIS
+.B pddcat
+.RB [ \-\-help ]
+.RB [ \-\-info ]
+.RB [ \-\-source
+.IR path ]
+.RB [ \-\-dest
+.IR path ]
+.RB [ \-\-working\-dir ]
+.RB [ \-\-temp\-src
+.IR path ]
+.RB [ \-\-temp\-dest
+.IR path ]
+.RB [ \-\-curated\-list ]
+.RB [ \-\-add
+.IR name
+[
+.IR name ... \fR]]
+
+
+.SH DESCRIPTION
+Organise your all-in-one everything's-a-jumbled-mess porn downloads directory into different directories based on models' names using regex.
+
+.SH FUNCTIONALITY
+The program looks for directories or files in source (set with \fB--src path/to/src\fR) that match names supplied from both \fBcurated_list.txt\fR and \fBcustom_list.txt\fR. Curated list is downloaded by running \fB-c\fR option, custom list gets created on initial program run and additional names could be added to this list if no match occurs by using \fB-a name name_two third_name etc\fR.
+
+Names in list files are listed as \fBname_surname\fR, turning any white space character between words into an underscore. Regex used is \fBname[\\. _-]*surname\fR; meaning match name and surname of a model, accepting either a dot, a white space character, an underscore, a dash or nothing in-between the names. Models that doesn't have a space between their names (a single word name) matches that word and if it's a very common one word name, be advised using it in custom list.
+
+.SH OPTIONS
+
+.SS GENERAL
+.TP
+\fB\-h\fR, \fB\-\-help\fR
+Show help message and exit.
+.TP
+\fB\-i\fR, \fB\-\-info\fR
+Print currently set source/destination directories and exit. Can be combined with -w, -ts, -td options to display modified paths. Terminates the program nonetheless.
+
+.SS CONFIG
+.TP
+\fB\-s\fR, \fB\-\-source\fR \fIpath\fR
+Set source (downloads) directory where the files/directories are matched and moved from. Modifies "\fBsrc=\fR" line in the config file.
+.TP
+\fB\-d\fR, \fB\-\-dest\fR \fIpath\fR
+Set destination (archive) directory where directories with model names are created and files/directories moved to. Modifies "\fBdest=\fR" line in the config file.
+
+.SS TEMPORARY PATH
+.TP
+\fB\-w\fR, \fB\-\-working\-dir\fR
+Temporarily change the source directory on runtime to current working directory rather than currently set source in config. Cannot be combined with -ts option.
+.TP
+\fB\-ts\fR, \fB\-\-temp\-src\fR \fIpath\fR
+Temporarily change the source directory on runtime to a given path rather than currently set source in config. Cannot be combined with -w option.
+.TP
+\fB\-td\fR, \fB\-\-temp\-dest\fR \fIpath\fR
+Temporarily change the destination directory on runtime to a given path rather than currently set destination in config.
+
+.SS NAME LISTS
+.TP
+\fB\-c\fR, \fB\-\-curated\-list\fR
+Download a curated list of model/actor/actress names from GitHub repository to the config directory so the program could have a list of names to use while categorising. See LINKS below for source URL.
+.TP
+\fB\-a\fR, \fB\-\-add\fR \fIname\fR [\fIname\fR ...]
+Add your own model names to a \fBcustom_list.txt\fR in config directory. This option accepts multiple arguments. If person's name or nickname contains a space use an underscore (_) instead of a white space character ( ).
+
+Names in custom list could be commented to topic #9 on GitHub or a pull request sent to repository for their addition to \fBcurated_list.txt\fR. See LINKS below for more.
+.IP
+Example: pddcat -a name_surname model_two_electric_boogaloo third_model
+
+.SH DEFAULTS
+Default configuration file, custom list and curated list download directory is as follows:
+
+.IP Linux:
+.I /home/$USER/.config/pddcat/
+.IP Windows:
+.I C:/Users/$USER/Documents/pddcat/
+
+.SH LINKS
+.TP
+Curated list of names: <https://github.com/kittenparry/pddcat/blob/master/db/curated_list.txt>
+.TP
+Names topic (#9) on GitHub: <https://github.com/kittenparry/pddcat/issues/9>
+
+.SH AUTHOR
+Edvin Boul <edvinboul at gmail dot com>
+
+.SH COPYRIGHT
+\fIpddcat\fR is licensed under GNU General Public License v3.0 (GPL\-3.0), see LICENSE file.

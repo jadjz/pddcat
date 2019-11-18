@@ -1,0 +1,31 @@
+#!/bin/bash
+
+# to quickly create compressed files for release
+
+date=$(date +%Y-%m-%d)
+name='pddcat'
+filename="$name-${date}.7z"
+build_dir='builds/'
+
+# exclude certain files and directories from compression
+ignored_dirs=($build_dir extras/ .git/ .github/ db/)
+ignored_files=(build README.md .gitignore)
+cmd_dirs=''
+cmd_files=''
+for dir in "${ignored_dirs[@]}"
+do
+	cmd_dirs="$cmd_dirs-xr!$dir "
+done
+for file in "${ignored_files[@]}"
+do
+	cmd_files="$cmd_files-x!$file "
+done
+
+7z a $filename . $cmd_dirs$cmd_files
+if [ ! -d $build_dir ]; then
+	mkdir $build_dir
+	echo "$build_dir has been created."
+fi
+mv $filename $build_dir
+
+echo "$filename has been compressed and moved to $build_dir."
