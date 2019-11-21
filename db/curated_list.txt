@@ -2,8 +2,8 @@
 # Edit at your own risk, for it will be overwritten if -c is used again.
 # Instead use custom_list.txt to add your own model names.
 # Comment or send a pull request to add to curated_list.txt. See #9 on GitHub.
-# Number of names: 469
-# For comparison: revision 16
+# Number of names: 481
+# For comparison: revision 17
 abbie_maley
 abby_rains
 abella_danger
@@ -44,6 +44,7 @@ ana_rose
 anastasia_brokelyn
 anastasia_knight
 ancilla_tilia
+andresplusnatalie
 anetta_keys
 angel_del_rey
 angel_smalls
@@ -65,6 +66,7 @@ ariel_rebel
 arietta_adams
 arteya
 arya_fae
+asami
 ashe_maree
 ashley_adams
 ashley_alban
@@ -87,6 +89,7 @@ avery_stone
 baby_girl666
 baby_nicols
 babyjinx
+barbarasexappel
 bella_claire
 bella_jane
 belle_delphine
@@ -120,6 +123,7 @@ cecilia_lion
 celestia_vega
 chanel_preston
 charley_s
+charlotte_springer
 chase_ryder
 chelsea_vegas
 cherry_kiss
@@ -138,6 +142,7 @@ daniella_margot
 danni_dawn
 danni_rivers
 darcie_dolce
+disharmonica
 dylann_vox
 eden_sin
 elektra_rose
@@ -186,6 +191,8 @@ hayden_ryan
 hazel_moore
 heidi_romanova
 helen_g
+helly_von_valentine
+hippy_mia
 hollie_sparrow
 holly_gibbons
 hope_harper
@@ -213,6 +220,7 @@ jenna_ross
 jennifer_ann
 jennifer_jacobs
 jenny_james
+jenny_taborda
 jess_davies
 jessa_rhodes
 jessica_jaymes
@@ -249,8 +257,11 @@ kira_sinn
 kira_thorn
 kittenxx
 kitty_carrera
+kitty_neko
+kittysophie
 kleio_valentien
 kloe_kane
+knee_ling
 krissy_lynn
 kristen_scott
 kristina_reese
@@ -290,6 +301,7 @@ lilu_moon
 lily_moon
 lindsay_marie
 lindsey_cruz
+little_bubblegum
 littlekitsune
 liv_wild
 liya_silver
@@ -369,7 +381,7 @@ nikki_benz
 nikki_rhodes
 nina_skye
 noelle_easton
-octaviamay
+octavia_may
 okay_google
 olive_glass
 olivia_sin
